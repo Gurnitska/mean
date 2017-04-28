@@ -1,0 +1,40 @@
+{
+  "name": "task2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "http-server ./src -a localhost -p 8000 -c-1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-batch": "^1.0.5",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^3.2.2",
+    "gulp-inject": "^4.0.0",
+    "gulp-less": "^3.0.5",
+    "gulp-minifier": "^0.1.4",
+    "gulp-sync": "^0.1.4",
+    "gulp-useref": "^3.0.8",
+    "gulp-watch": "^4.3.5",
+    "require-dir": "^0.3.0",
+    "wiredep": "^4.0.0"
+  },
+  "dependencies": {
+    "bcrypt"         : "^0.8.5",
+    "body-parser"    : "^1.4.3",
+    "express"        : "^4.13.4",
+    "jwt-simple"     :"^0.3.1",
+    "method-override": "^2.1.3",
+    "mongoose"       : "^4.4.12",
+    "morgan"         : "^1.1.1",
+    "passport"       : "^0.3.0",
+    "passport-jwt"   : "^1.2.1"
+  }
+}

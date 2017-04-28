@@ -1,0 +1,32 @@
+<div class="row header">
+
+</div>
+<div class="row body" id="login">
+    <div class="col-sm-12">
+        <h1 class="text-center">Login page</h1>
+        <form class="form" name="form" ng-submit="login(user, form)" autocomplete="off" novalidate>
+            <div class="col-md-6 col-md-offset-3">
+                <p>Fill your login and password please.</p>
+                <div class="form-group">
+                    <label>Login</label>
+                    <input type="text" name="username" class="form-control" ng-model="user.username" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" ng-model="user.password" required>
+                </div>
+
+                <div class="form-group has-error">
+                    <p class="help-block">{{ errors.other }}</p>
+                </div>
+
+                <div class="text-center">
+                    <button id="btnLogin" class="btn btn-inverse btn-lg btn-login primary-button" type="submit" ng-disabled="submitted">
+                        <i blb-loading="submitted" blb-loading-size="spin-sm"></i>Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+# IDE files #
+.idea
+*.iml
+
+node_modules
+src/bower_components
