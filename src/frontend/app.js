@@ -1,5 +1,6 @@
 angular.module('mean', [
-	'ui.router'
+	'ui.router',
+	'mean.auth'
 ]);
 angular.module('mean').config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
@@ -13,7 +14,7 @@ angular.module('mean').config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: 'frontend/app.html',
 			controller: "AppCtrl"
 		});
-		 // $urlRouterProvider.otherwise('mean.app');
+		 $urlRouterProvider.otherwise('/auth');
 }).run(function ($filter, $rootScope, $timeout) {
 	console.log("application is running");
 
