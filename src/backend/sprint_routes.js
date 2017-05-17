@@ -1,18 +1,16 @@
-var Project = require('./schemas/project');
+var Sprint = require('./schemas/sprint');
 
 module.exports = function () {
     var functions = {};
 
-    functions.createProject = function(req, res){
-        var project = new Project({
-            name: req.query.name,
-            description: req.query.description,
-            users: [req.query.user_id]
+    functions.createSprint = function(req, res){
+        var sprint = new Sprint({
+            name: req.query.name
         });
-        project.save()
-            .then(function(project) {
-                    console.log(project);
-                    res.send(project);
+        sprint.save()
+            .then(function(sprint) {
+                    console.log(sprint);
+                    res.send(sprint);
                 },
                 function(err) {
                     console.log(err);
@@ -22,25 +20,25 @@ module.exports = function () {
                     });
                 });
     }
-
-
-    functions.findById = function(req, res){
-        console.log(req);
-        Project.findById(req.params.id, function (err, project) {
+    functions.updateSprint = function(req, res){
+        var options = {
+            $set: { name: req.query.name}
+        }
+        Sprint.findByIdAndUpdate(req.query.id, options, { new: true },
+            function (err, sprint) {
                 if (err) {
-                    console.log(err);
                     res.send({
                         message: err.message
                     });
                     return res;
                 };
-                res.send(project);
+                res.send(sprint);
             });
     }
 
-    functions.deleteProject = function(req, res){
+    functions.findSprintById = function(req, res){
         console.log(req);
-        Project.remove(req.params.id, function (err, project) {
+        Sprint.findById(req.params.id, function (err, project) {
             if (err) {
                 console.log(err);
                 res.send({

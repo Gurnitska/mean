@@ -59,6 +59,12 @@ module.exports = function () {
         });
     };
 
+    functions.findUserById = function(req, res) {
+        User.findById(req.params.id, function(err, user) {
+            res.send(user);
+        });
+    };
+
     return functions;
 
 };

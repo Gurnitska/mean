@@ -8,5 +8,6 @@ mongoose.Promise = Promise;
 
 module.exports = mongoose.model('Project', {
     name: { type : String , required : true},
+    description: { type : String , required : true },
     users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });

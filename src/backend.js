@@ -7,6 +7,7 @@ module.exports = function () {
     var express = require('express');
     var user_routes = require('./backend/user_routes.js');
     var project_routes = require('./backend/project_routes.js');
+    var sprint_routes = require('./backend/sprint_routes.js');
     var app = express();
     var methodOverride = require('method-override');
     var bodyParser = require('body-parser');
@@ -29,10 +30,15 @@ module.exports = function () {
     app.route('/signup').post(user_routes().signup);
 
     app.route('/user').get(user_routes().user);
+    app.route('/user/:id').get(user_routes().findUserById);
 
     app.route('/createproject').post(project_routes().createProject);
-    app.route('/updateproject').post(project_routes().updateProject);
+    app.route('/deleteproject/:id').delete(project_routes().deleteProject);
     app.route('/project/:id').get(project_routes().findById);
+
+    app.route('/createsprint').post(sprint_routes().createSprint);
+    app.route('/updatesprint').post(sprint_routes().updateSprint);
+    app.route('/sprint/:id').get(sprint_routes().findSprintById);
 
 
     return app;
