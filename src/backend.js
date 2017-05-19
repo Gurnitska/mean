@@ -8,6 +8,7 @@ module.exports = function () {
     var user_routes = require('./backend/user_routes.js');
     var project_routes = require('./backend/project_routes.js');
     var sprint_routes = require('./backend/sprint_routes.js');
+    var card_routes = require('./backend/card_routes.js');
     var app = express();
     var methodOverride = require('method-override');
     var bodyParser = require('body-parser');
@@ -32,14 +33,18 @@ module.exports = function () {
     app.route('/user').get(user_routes().user);
     app.route('/user/:id').get(user_routes().findUserById);
 
-    app.route('/createproject').post(project_routes().createProject);
-    app.route('/deleteproject/:id').delete(project_routes().deleteProject);
-    app.route('/project/:id').get(project_routes().findById);
+    app.route('/project/new').post(project_routes().createProject);
+    app.route('/project/:id').delete(project_routes().deleteProject);
+    app.route('/project/:id').get(project_routes().findProjectById);
 
-    app.route('/createsprint').post(sprint_routes().createSprint);
-    app.route('/updatesprint').post(sprint_routes().updateSprint);
+    app.route('/sprint/new').post(sprint_routes().createSprint);
+    app.route('/sprint/:id').post(sprint_routes().updateSprint);
     app.route('/sprint/:id').get(sprint_routes().findSprintById);
 
+    app.route('/card/new').post(card_routes().createCard);
+    app.route('/card/:id').post(card_routes().updateCard);
+    app.route('/card/:id').get(card_routes().findCardById);
+    app.route('/card/:id').delete(card_routes().deleteCard);
 
     return app;
 

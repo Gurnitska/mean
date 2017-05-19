@@ -24,7 +24,7 @@ module.exports = function () {
     }
 
 
-    functions.findById = function(req, res){
+    functions.findProjectById = function(req, res){
         console.log(req);
         Project.findById(req.params.id, function (err, project) {
                 if (err) {

@@ -27,8 +27,23 @@ module.exports = function () {
                 });
     }
 
+    functions.updateCard = function(req, res){
+        var options = {
+            $set: { name: req.query.name}
+        }
+        Card.findByIdAndUpdate(req.query.id, options, { new: true },
+            function (err, sprint) {
+                if (err) {
+                    res.send({
+                        message: err.message
+                    });
+                    return res;
+                };
+                res.send(sprint);
+            });
+    }
 
-    functions.findById = function(req, res){
+    functions.findCardById = function(req, res){
         console.log(req);
         Card.findById(req.params.id, function (err, card) {
             if (err) {
@@ -42,7 +57,7 @@ module.exports = function () {
         });
     }
 
-    functions.deleteProject = function(req, res){
+    functions.deleteCard = function(req, res){
         console.log(req);
         Card.remove(req.params.id, function (err, card) {
             if (err) {

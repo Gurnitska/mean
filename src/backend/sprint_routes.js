@@ -24,7 +24,7 @@ module.exports = function () {
         var options = {
             $set: { name: req.query.name}
         }
-        Sprint.findByIdAndUpdate(req.query.id, options, { new: true },
+        Sprint.findByIdAndUpdate(req.params.id, options, { new: true },
             function (err, sprint) {
                 if (err) {
                     res.send({

@@ -3,12 +3,15 @@
 <head>
 <!-- build:css(./src) css/vendor.css -->
   <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
   <link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.css" />
   <!-- endbower -->
 <!-- endbuild -->
 <!-- build:css(./) css/main.css -->
   <!-- inject:css -->
+
+  <link rel="stylesheet" href="frontend/asserts/css/auth.css">
 
   <!-- endinject -->
 <!-- endbuild -->
@@ -31,9 +34,14 @@
   <script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
   <!-- endbower -->
 <!-- endbuild -->
-Hello Mean
 <!-- build:js(./) js/main.js -->
 	<!-- inject:js -->
+
+
+<script src="frontend/auth/auth.js"></script>
+
+
+<script src="frontend/auth/auth-controller.js"></script>
 
 
 <script src="frontend/app.js"></script>
