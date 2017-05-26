@@ -5,7 +5,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-6">
-                            <a ng-class="{active: selected=='login'}" id="login-form-link" ng-click="selected='login'">Login</a>
+                            <a ng-class="{active: selected=='login'}" id="login-form-link" ng-click="selected='login'" >Login</a>
                         </div>
                         <div class="col-xs-6">
                             <a ng-class="{active: selected=='register'}" id="register-form-link" ng-click="selected='register'">Register</a>
@@ -18,10 +18,12 @@
                         <div class="col-lg-12">
                             <form id="login-form" role="form" style="display: block;" ng-show="selected=='login'">
                                 <div class="form-group">
-                                    <input type="text" ng-model="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Username" value="">
+                                    <input type="text" ng-model="user.email" name="email" id="email" tabindex="1" class="form-control" placeholder="Username" value="">
+                                    <span ng-show="error.email">{{error.email}}</span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" ng-model="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <input type="password" ng-model="user.password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <span ng-show="error.password">{{error.password}}</span>
                                 </div>
                                 <div class="form-group text-center">
                                     <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -30,6 +32,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
+                                            <span ng-show="error.common">{{error.common}}</span>
                                             <input ng-click="login()" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
                                         </div>
                                     </div>
@@ -43,21 +46,26 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </form>
-                            <form id="register-form" action="/signup" method="post" role="form" style="display: block;" ng-show="selected=='register'">
+                            <form id="register-form" method="post" role="form" style="display: block;" ng-show="selected=='register'">
                                 <div class="form-group">
-                                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                    <input type="email" ng-model="user.email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                    <span ng-show="error.email">{{error.email}}</span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <input type="password" ng-model="user.password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <span ng-show="error.password">{{error.password}}</span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                    <input type="password" ng-model="user.password_repeat" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                    <span ng-show="error.password">{{error.password}}</span>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                            <span ng-show="error.common">{{error.common}}</span>
+                                            <input type="submit" ng-click="register()" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
                                         </div>
                                     </div>
                                 </div>

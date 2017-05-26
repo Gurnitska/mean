@@ -19,7 +19,9 @@ module.exports = function () {
                 return res;
             }
             if(!user) {
-                res.send({error:"Incorrect email or password"});
+                res.send({
+                    message: "Incorrect email or password"
+                });
                 return res;
             }
             console.log("User -" + user);

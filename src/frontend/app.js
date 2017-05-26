@@ -39,7 +39,6 @@ angular.module('mean').config(function ($stateProvider, $urlRouterProvider, $htt
 	console.log("application is running");
 	if(!$localStorage.token){
         $timeout(function() { $state.go('mean.app.auth'); });
-        // $state.go("mean.app.auth");
     }
 
 });
