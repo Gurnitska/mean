@@ -49,6 +49,19 @@ module.exports = function () {
             res.send(project);
         });
     }
+    functions.findSprintByUserId = function(req, res){
+        console.log(req);
+        Sprint.find({users:req.params.user_id}, function (err, project) {
+            if (err) {
+                console.log(err);
+                res.send({
+                    message: err.message
+                });
+                return res;
+            };
+            res.send(project);
+        });
+    }
 
     return functions;
 };

@@ -56,6 +56,19 @@ module.exports = function () {
             res.send(card);
         });
     }
+    functions.findCardByUserId = function(req, res){
+        console.log(req);
+        Card.find({users:req.params.user_id}, function (err, card) {
+            if (err) {
+                console.log(err);
+                res.send({
+                    message: err.message
+                });
+                return res;
+            };
+            res.send(card);
+        });
+    }
 
     functions.deleteCard = function(req, res){
         console.log(req);

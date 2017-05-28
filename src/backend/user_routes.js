@@ -59,8 +59,8 @@ module.exports = function () {
 
     functions.signup = function(req, res) {
         var user = new User({
-            email: req.query.email,
-            password: req.query.password
+            email: req.body.email,
+            password: req.body.password
         });
         console.log(user);
 
@@ -68,9 +68,38 @@ module.exports = function () {
         user.save()
             .then(function(user) {
                     console.log(user);
-                    res.send({
-                        email: user.email
+                    Token.findOne({user_id:user.id}, function(err, token){
+                        if (err){
+                            console.log(err);
+                            res.send({
+                                message: err.message
+                            });
+                            return res;
+                        }
+
+                        if(!token) {
+                            token = new Token({
+                                user_id: user.id,
+                                token_value: user.id
+                            });
+                            token.save().then(function(token){
+                                    console.log(token);
+                                    res.send({token: token.token_value, expired: token.expired});
+                                },
+                                function(err){
+                                    console.log(err)
+                                    res.send({
+                                        code: err.code,
+                                        message: err.errmsg
+                                    });
+                                })
+                        }else {
+                            res.send({token: token.token_value, expired: token.expired});
+                        }
                     });
+                    // res.send({
+                    //     token: user.token
+                    // });
                 },
                 function(err) {
                     console.log(err)

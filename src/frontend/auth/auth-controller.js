@@ -1,9 +1,16 @@
 'use strict';
-angular.module('mean.auth').controller('AuthCtrl', function ($scope, $http) {
+angular.module('mean.app.auth').controller('AuthCtrl', function ($scope, $http, localStorageService) {
     console.log("auth controller");
-    $scope.user = {};
+
+    console.log(localStorageService);
     $scope.validation = function(){
         $scope.error = null;
+        if(!$scope.user){
+            $scope.error = {
+                common: 'Email and password are empty'
+            };
+            return false;
+        }
         if(!$scope.user.email){
             $scope.error = {
                 email: 'Email is empty'
@@ -17,7 +24,7 @@ angular.module('mean.auth').controller('AuthCtrl', function ($scope, $http) {
             return false;
         }
         if($scope.selected === 'register'){
-            if($scope.user.password == $scope.user.password_repeat){
+            if(!$scope.user.password == $scope.user.password_repeat){
                 $scope.error = {
                     password: 'Password is not equal'
                 };
@@ -44,8 +51,12 @@ angular.module('mean.auth').controller('AuthCtrl', function ($scope, $http) {
                 }
             }).then(function successCallback(response) {
                 console.log( response);
-                $scope.error = {
-                    common: response.data.message
+                if(response.data.message){
+                    $scope.error = {
+                        common: response.data.message
+                    }
+                }else {
+                    localStorageService.set("token", JSON.stringify(response.data.token));
                 }
                 // this callback will be called asynchronously
                 // when the response is available
@@ -71,8 +82,12 @@ angular.module('mean.auth').controller('AuthCtrl', function ($scope, $http) {
                 }
             }).then(function successCallback(response) {
                 console.log(response);
-                $scope.error = {
-                    common: response.data.message
+                if(response.data.message){
+                    $scope.error = {
+                        common: response.data.message
+                    }
+                }else {
+                    localStorageService.set("token", JSON.stringify(response.data.token));
                 }
                 // this callback will be called asynchronously
                 // when the response is available
@@ -87,4 +102,6 @@ angular.module('mean.auth').controller('AuthCtrl', function ($scope, $http) {
         }
     }
 
+
+    $scope.token = localStorageService.get('token');
 })

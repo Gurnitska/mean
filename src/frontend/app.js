@@ -1,8 +1,11 @@
 angular.module('mean', [
 	'ui.router',
-    'ngStorage',
+    'LocalStorageModule',
     'ngRoute',
-	'mean.auth'
+	'mean.app.auth',
+    'mean.app.dashboard',
+    'mean.common'
+
 ]);
 angular.module('mean').config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 	$stateProvider
@@ -17,12 +20,12 @@ angular.module('mean').config(function ($stateProvider, $urlRouterProvider, $htt
 			controller: "AppCtrl"
 		});
 		 $urlRouterProvider.otherwise('/auth');
-    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
+    $httpProvider.interceptors.push(['$q', '$location', 'localStorageService', function($q, $location, localStorageService) {
         return {
             'request': function (config) {
                 config.headers = config.headers || {};
-                if ($localStorage.token) {
-                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                if (localStorageService.get('token')) {
+                    config.headers.Authorization = 'Mean ' + localStorageService.get('token');
                 }
                 return config;
             },
@@ -35,10 +38,12 @@ angular.module('mean').config(function ($stateProvider, $urlRouterProvider, $htt
         };
     }]);
 
-}).run(function ( $filter, $rootScope, $state, $timeout, $localStorage) {
+}).run(function ( $filter, $rootScope, $state, $timeout, localStorageService) {
 	console.log("application is running");
-	if(!$localStorage.token){
+	if(!localStorageService.get('token')){
         $timeout(function() { $state.go('mean.app.auth'); });
+    }else{
+        $timeout(function(){$state.go('mean.app.dashboard')});
     }
 
 });

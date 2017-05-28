@@ -1,8 +1,8 @@
 'use strict';
-angular.module('mean.auth', [
+angular.module('mean.app.auth', [
     'ui.router'
 ]);
-angular.module('mean.auth').config(function ($stateProvider, $urlRouterProvider) {
+angular.module('mean.app.auth').config(function ($stateProvider, $urlRouterProvider) {
     console.log("auth module");
     $stateProvider
         .state('mean.app.auth', {

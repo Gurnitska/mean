@@ -27,15 +27,28 @@ module.exports = function () {
     functions.findProjectById = function(req, res){
         console.log(req);
         Project.findById(req.params.id, function (err, project) {
-                if (err) {
-                    console.log(err);
-                    res.send({
-                        message: err.message
-                    });
-                    return res;
-                };
-                res.send(project);
-            });
+            if (err) {
+                console.log(err);
+                res.send({
+                    message: err.message
+                });
+                return res;
+            };
+            res.send(project);
+        });
+    }
+    functions.findProjectByUserId = function(req, res){
+        console.log(req);
+        Project.find({users: req.params.user_id}, function (err, project) {
+            if (err) {
+                console.log(err);
+                res.send({
+                    message: err.message
+                });
+                return res;
+            };
+            res.send(project);
+        });
     }
 
     functions.deleteProject = function(req, res){

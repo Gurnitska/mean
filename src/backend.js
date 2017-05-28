@@ -24,6 +24,7 @@ module.exports = function () {
     app.use(function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,     Content-Type, Accept");
+        res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
         next();
     });
 
@@ -36,15 +37,18 @@ module.exports = function () {
     app.route('/project/new').post(project_routes().createProject);
     app.route('/project/:id').delete(project_routes().deleteProject);
     app.route('/project/:id').get(project_routes().findProjectById);
+    app.route('/user/project/:user_id').get(project_routes().findProjectByUserId);
 
     app.route('/sprint/new').post(sprint_routes().createSprint);
     app.route('/sprint/:id').post(sprint_routes().updateSprint);
     app.route('/sprint/:id').get(sprint_routes().findSprintById);
+    app.route('/user/sprint/:user_id').get(sprint_routes().findSprintByUserId);
 
     app.route('/card/new').post(card_routes().createCard);
     app.route('/card/:id').post(card_routes().updateCard);
     app.route('/card/:id').get(card_routes().findCardById);
     app.route('/card/:id').delete(card_routes().deleteCard);
+    app.route('/user/card/:user_id').get(card_routes().findCardByUserId);
 
     return app;
 
