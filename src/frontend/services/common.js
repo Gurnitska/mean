@@ -1,6 +1,10 @@
 'use strict';
+angular.module('mean.app.common', [
 
-angular.module('mean.common').service('Common', function() {
+]);
+
+angular.module('mean.app.common').service('Common', function($scope, $http) {
+    console.log("common module");
     var cards = null;
     var sprints = null;
     var projects = null;
@@ -9,7 +13,7 @@ angular.module('mean.common').service('Common', function() {
 
             $http({
                 method: 'GET',
-                url: 'http://localhost:3000/user/cards/' + '5906173bdc4db91b08be4fce',
+                url: 'http://localhost:3000/user/card/' + '5906173bdc4db91b08be4fce',
             }).then(function successCallback(response) {
                 console.log(response);
                 // this callback will be called asynchronously
@@ -28,9 +32,10 @@ angular.module('mean.common').service('Common', function() {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:3000/user/projects/' + '5906173bdc4db91b08be4fce',
+            url: 'http://localhost:3000/user/project/' + '5906173bdc4db91b08be4fce',
         }).then(function successCallback(response) {
             console.log(response);
+            return response.data;
             // this callback will be called asynchronously
             // when the response is available
         }, function errorCallback(response) {

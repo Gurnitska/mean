@@ -34,21 +34,35 @@ module.exports = function () {
     app.route('/user').get(user_routes().user);
     app.route('/user/:id').get(user_routes().findUserById);
 
-    app.route('/project/new').post(project_routes().createProject);
-    app.route('/project/:id').delete(project_routes().deleteProject);
-    app.route('/project/:id').get(project_routes().findProjectById);
-    app.route('/user/project/:user_id').get(project_routes().findProjectByUserId);
+    app.route('/project/new').post(ensureAuthorized, project_routes().createProject);
+    app.route('/project/:id').delete(ensureAuthorized, project_routes().deleteProject);
+    app.route('/project/:id').get(ensureAuthorized, project_routes().findProjectById);
+    app.route('/user/project/:user_id').get(ensureAuthorized, project_routes().findProjectByUserId);
 
-    app.route('/sprint/new').post(sprint_routes().createSprint);
-    app.route('/sprint/:id').post(sprint_routes().updateSprint);
-    app.route('/sprint/:id').get(sprint_routes().findSprintById);
-    app.route('/user/sprint/:user_id').get(sprint_routes().findSprintByUserId);
+    app.route('/sprint/new').post(ensureAuthorized, sprint_routes().createSprint);
+    app.route('/sprint/:id').post(ensureAuthorized, sprint_routes().updateSprint);
+    app.route('/sprint/:id').get(ensureAuthorized, sprint_routes().findSprintById);
+    app.route('/user/sprint/:user_id').get(ensureAuthorized, sprint_routes().findSprintByUserId);
 
-    app.route('/card/new').post(card_routes().createCard);
-    app.route('/card/:id').post(card_routes().updateCard);
-    app.route('/card/:id').get(card_routes().findCardById);
-    app.route('/card/:id').delete(card_routes().deleteCard);
-    app.route('/user/card/:user_id').get(card_routes().findCardByUserId);
+    app.route('/card/new').post(ensureAuthorized, card_routes().createCard);
+    app.route('/card/:id').post(ensureAuthorized, card_routes().updateCard);
+    app.route('/card/:id').get(ensureAuthorized, card_routes().findCardById);
+    app.route('/card/:id').delete(ensureAuthorized, card_routes().deleteCard);
+    app.route('/user/card/:user_id').get(ensureAuthorized, card_routes().findCardByUserId);
+
+    function ensureAuthorized(req, res, next) {
+        var bearerToken;
+        console.log(req.headers);
+        var bearerHeader = req.headers["authorization"];
+        if (typeof bearerHeader !== 'undefined') {
+            var bearer = bearerHeader.split(" ");
+            bearerToken = bearer[1];
+            req.token = bearerToken;
+            next();
+        } else {
+            res.sendStatus(403);
+        }
+    }
 
     return app;
 

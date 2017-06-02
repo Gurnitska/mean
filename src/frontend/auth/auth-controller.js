@@ -1,5 +1,5 @@
 'use strict';
-angular.module('mean.app.auth').controller('AuthCtrl', function ($scope, $http, localStorageService) {
+angular.module('mean.app.auth').controller('AuthCtrl', function ($rootScope, $scope, $http, localStorageService, $location, $state) {
     console.log("auth controller");
 
     console.log(localStorageService);
@@ -56,12 +56,16 @@ angular.module('mean.app.auth').controller('AuthCtrl', function ($scope, $http, 
                         common: response.data.message
                     }
                 }else {
-                    localStorageService.set("token", JSON.stringify(response.data.token));
+                    localStorageService.set("token", response.data.token);
+                    $rootScope.token = localStorageService.get('token');
+                    // $window.location= "/dashboard";
+                    $state.go('mean.app.dashboard');
                 }
                 // this callback will be called asynchronously
                 // when the response is available
             }, function errorCallback(response) {
                 console.log(response);
+
                 $scope.error = {
                     common: response.data.message
                 }
@@ -87,7 +91,9 @@ angular.module('mean.app.auth').controller('AuthCtrl', function ($scope, $http, 
                         common: response.data.message
                     }
                 }else {
-                    localStorageService.set("token", JSON.stringify(response.data.token));
+                    localStorageService.set("token", response.data.token);
+                    $rootScope.token = localStorageService.get('token');
+                    $state.go('mean.app.dashboard');
                 }
                 // this callback will be called asynchronously
                 // when the response is available
@@ -102,6 +108,4 @@ angular.module('mean.app.auth').controller('AuthCtrl', function ($scope, $http, 
         }
     }
 
-
-    $scope.token = localStorageService.get('token');
 })
