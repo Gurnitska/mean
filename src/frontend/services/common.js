@@ -1,10 +1,10 @@
 'use strict';
 angular.module('mean.app.common', [
-
+    'LocalStorageModule'
 ]);
 
-angular.module('mean.app.common').service('Common', function($scope, $http) {
-    console.log("common module");
+angular.module('mean.app.common').service('Common', function($http) {
+    console.log("common service");
     var cards = null;
     var sprints = null;
     var projects = null;

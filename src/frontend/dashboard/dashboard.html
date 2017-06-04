@@ -3,14 +3,14 @@
 	<div class="col-sm-6">
 		<span>List of projects</span>
 		<ul ng-repeat="item in projects">
-			<li><a ui-sref="app.project.view({id: item.id})">{{item.name}}</a>
+			<li><a ui-sref="mean.app.project.view({id: item._id})">{{item.name}}</a>
 			</li>
 		</ul>
 	</div>
 	<div class="col-sm-6">
 		<span>List of cards</span>
 		<ul ng-repeat="item in cards">
-			<li><a ui-sref="app.cards.edit({id: item.id})">{{item.name}}</a>
+			<li><a ui-sref="mean.app.cards.edit({id: item._id})">{{item.name}}</a>
 			</li>
 		</ul>
 	</div>

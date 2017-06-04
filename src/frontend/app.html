@@ -2,23 +2,19 @@
     <h1 class="center">Hello Mean Task</h1>
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+         <!--Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <!--<ul class="nav navbar-nav">-->
             <!--<li>-->
               <!--<button type="submit" class="btn btn-primary btn-lg">New project</button>-->
             <!--</li>-->
           <!--</ul>-->
-          <!--<ul class="nav navbar-nav navbar-right">-->
-            <!--<li class="dropdown">-->
-              <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Name<span class="caret"></span></a>-->
-              <!--<ul class="dropdown-menu">-->
-                <!--<li role="separator" class="divider"></li>-->
-                <!--<li><a href="" ng-click="vm.logOut()">Logout</a></li>-->
-              <!--</ul>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
+          <ul class="nav navbar-nav navbar-right" ng-show="showMenu()">
+              <li>
+             <a ng-href="#/auth" ng-click="logOut()">Logout</a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 </div>

@@ -10,10 +10,10 @@ angular.module('mean.app.dashboard').config(function ($stateProvider) {
             templateUrl: 'frontend/dashboard/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                projects: function($http) {
+                projects: function($http, localStorageService) {
                     return $http({
                         method: 'GET',
-                        url: 'http://localhost:3000/user/project/' + '5906173bdc4db91b08be4fce',
+                        url: 'http://localhost:3000/user/project/' + localStorageService.get("token", "localStorage"),
                     }).then(function successCallback(response) {
                         console.log(response);
                         return response.data;
