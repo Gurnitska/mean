@@ -1,0 +1,13 @@
+body{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button.btn-collapse{
+    border: none;
+    background: inherit;
+}
+button.btn-collapse:hover{
+    text-decoration: underline;
+}

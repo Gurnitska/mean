@@ -1,9 +1,9 @@
 'use strict';
 angular.module('mean.app.common', [
-    'LocalStorageModule'
+
 ]);
 
-angular.module('mean.app.common').service('Common', function($http) {
+angular.module('mean.app.common').service('Common', function($http, Auth) {
     console.log("common service");
     var cards = null;
     var sprints = null;
@@ -11,40 +11,64 @@ angular.module('mean.app.common').service('Common', function($http) {
 
     this.getCards = function(){
 
-            $http({
-                method: 'GET',
-                url: 'http://localhost:3000/user/card/' + '5906173bdc4db91b08be4fce',
-            }).then(function successCallback(response) {
-                console.log(response);
-                // this callback will be called asynchronously
-                // when the response is available
-            }, function errorCallback(response) {
-                console.log(response);
-                $scope.error = {
-                    common: response.data.message
-                }
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-
-    }
-    this.getProjects = function(){
-
-        $http({
+        return $http({
             method: 'GET',
-            url: 'http://localhost:3000/user/project/' + '5906173bdc4db91b08be4fce',
+            url: 'http://localhost:3000/user/card/' + Auth.getToken(),
         }).then(function successCallback(response) {
             console.log(response);
             return response.data;
-            // this callback will be called asynchronously
-            // when the response is available
         }, function errorCallback(response) {
             console.log(response);
-            $scope.error = {
+            return {
                 common: response.data.message
             }
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+        });
+    }
+
+    this.getCardById = function(id){
+
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:3000/card/' + id,
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+            return {
+                common: response.data.message
+            }
+        });
+    }
+
+    this.getProjects = function(){
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:3000/user/project/' + Auth.getToken(),
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+            return {
+                common: response.data.message
+            }
+        });
+
+    }
+
+    this.getProjectById = function(id){
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:3000/project/' + id,
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+            return {
+                common: response.data.message
+            }
         });
 
     }

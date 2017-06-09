@@ -1,6 +1,8 @@
-angular.module('mean.app.project', ['mean.app.common']);
+'use strict';
 
-angular.module('mean.app.project').config(function ($stateProvider, $provide) {
+angular.module('mean.app.project', ['ui.router', 'mean.app.common']);
+
+angular.module('mean.app.project').config(function ($stateProvider) {
 	$stateProvider
 		.state('mean.app.project', {
 			url: '/project',
@@ -8,14 +10,15 @@ angular.module('mean.app.project').config(function ($stateProvider, $provide) {
             template: '<ui-view/>'
 		})
 		.state('mean.app.project.view', {
-			url: '/{id:\\d+}',
+			url: '/{id:\\w+}',
 			templateUrl: 'frontend/project/project.html',
 			controller: 'ProjectDetailsCtrl',
-			// resolve: {
-			// 	project: function($stateParams, Common){
-			// 		var id = $stateParams.id;
-			// 		return Common.getProjectById(id);
-			// 	}
-			// }
+			resolve: {
+				project: function($stateParams, Common){
+					console.log()
+					var id = $stateParams.id;
+					return Common.getProjectById(id);
+				}
+			}
 		})
 	})

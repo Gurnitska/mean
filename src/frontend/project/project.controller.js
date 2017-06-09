@@ -2,6 +2,7 @@
 
 angular.module('mean.app.project')
     .controller('ProjectDetailsCtrl', function ($scope, $state, $location, project) {
+            $scope.project = project;
 	   	// var updateSprints = function(project){
     		// $scope.backlog = project.sprints.filter(function(item){
     		// 	return item.name == "Backlog";
@@ -40,7 +41,7 @@ angular.module('mean.app.project')
     		// }
         // }
         console.log("project controller");
-        //
+
         // $scope.deleteProject = function(id){
         //
         // }
@@ -58,12 +59,12 @@ angular.module('mean.app.project')
   		// 		return length;
   		// 	}
   		// }
-
+        //
         // $scope.addNewCard = function(column){
-
+        //
         // }
 
-        // $scope.removeCard = function(){
+        $scope.removeCard = function(){
 
-        // }
+        }
 });

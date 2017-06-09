@@ -5,8 +5,11 @@ angular.module('mean', [
     'mean.app.common',
 	'mean.app.auth',
     'mean.app.dashboard',
-    'mean.app.project'
+    'mean.app.project',
+    'mean.app.card'
 ]);
+
+
 angular.module('mean').config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 	$stateProvider
 		.state('mean', {
@@ -42,8 +45,9 @@ angular.module('mean').config(function ($stateProvider, $urlRouterProvider, $htt
 	console.log("application is running");
     if(!localStorageService.get("token", "localStorage")){
         $timeout(function() { $state.go('mean.app.auth'); });
-    }else{
-        $timeout(function(){$state.go('mean.app.dashboard')});
     }
+    // else{
+    //     $timeout(function(){$state.go('mean.app.dashboard')});
+    // }
 
 });

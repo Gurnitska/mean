@@ -58,7 +58,7 @@ module.exports = function () {
     }
     functions.findCardByUserId = function(req, res){
         console.log(req);
-        Card.find({users:req.params.user_id}, function (err, card) {
+        Card.find({asignee_id:req.params.user_id}, function (err, card) {
             if (err) {
                 console.log(err);
                 res.send({

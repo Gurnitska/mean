@@ -10,29 +10,12 @@ angular.module('mean.app.dashboard').config(function ($stateProvider) {
             templateUrl: 'frontend/dashboard/dashboard.html',
             controller: 'DashboardCtrl',
             resolve: {
-                projects: function($http, localStorageService) {
-                    return $http({
-                        method: 'GET',
-                        url: 'http://localhost:3000/user/project/' + localStorageService.get("token", "localStorage"),
-                    }).then(function successCallback(response) {
-                        console.log(response);
-                        return response.data;
-                        // this callback will be called asynchronously
-                        // when the response is available
-                    }, function errorCallback(response) {
-                        console.log(response);
-                        return {
-                            common: response.data.message
-                        }
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                    });
-
-
+                projects: function(Common){
+                    return Common.getProjects();
                 },
-            //     cards: function(Common){
-            //         return Common.getCards();
-            //     }
+                cards: function(Common){
+                    return Common.getCards();
+                }
             }
         });
 })
