@@ -6,5 +6,13 @@ angular.module('mean.app.card')
     	
         console.log("card controller");
 
+        $scope.updateEmptyProjectSprint = function(property){
+            if(!property){
+                return "Not assign";
+            }else{
+                return property;
+            }
+        }
+
 
 });

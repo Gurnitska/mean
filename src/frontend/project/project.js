@@ -18,7 +18,12 @@ angular.module('mean.app.project').config(function ($stateProvider) {
 					console.log()
 					var id = $stateParams.id;
 					return Common.getProjectById(id);
-				}
+				},
+				cards: function($stateParams, Common){
+                    console.log();
+                    var id = $stateParams.id;
+                    return Common.getCardsByProjectId(id);
+                }
 			}
 		})
 	})

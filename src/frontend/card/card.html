@@ -1,1 +1,26 @@
 <h1>{{card.name}}</h1>
+<div class="row m-t-20">
+
+</div>
+<div class="row m-t-20">
+    <div class="col-sm-9">
+        <dl>
+            <dt>Description: </dt>
+            <dd>{{card.description}}</dd>
+        </dl>
+    </div>
+    <div class="col-sm-3">
+        <dl>
+            <dt>Asignee: </dt><dd>{{card.asignee_id}}</dd>
+        </dl>
+        <dl>
+            <dt>Status: </dt><dd>{{card.status}}</dd>
+        </dl>
+        <dl>
+            <dt>Project: </dt><dd>{{updateEmptyProjectSprint(card.project_id)}}</dd>
+        </dl>
+        <dl>
+            <dt>Sprint: </dt><dd>{{updateEmptyProjectSprint(card.sprint_id)}}</dd>
+        </dl>
+    </div>
+</div>

@@ -72,4 +72,20 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
         });
 
     }
+
+    this.getCardsByProjectId = function(id){
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:3000/card/project/' + id,
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+            return {
+                common: response.data.message
+            }
+        });
+
+    }
 })

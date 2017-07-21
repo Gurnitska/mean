@@ -70,6 +70,21 @@ module.exports = function () {
         });
     }
 
+    functions.findCardsByProjectId = function(req, res){
+        console.log(req);
+        Card.find({project_id:req.params.project_id}, function (err, card) {
+            if (err) {
+                console.log(err);
+                res.send({
+                    message: err.message
+                });
+                return res;
+            };
+            console.log("!!!!!!!!!!!!!" + card);
+            res.send(card);
+        });
+    }
+
     functions.deleteCard = function(req, res){
         console.log(req);
         Card.remove(req.params.id, function (err, card) {

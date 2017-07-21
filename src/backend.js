@@ -38,6 +38,7 @@ module.exports = function () {
     app.route('/project/:id').delete(ensureAuthorized, project_routes().deleteProject);
     app.route('/project/:id').get(ensureAuthorized, project_routes().findProjectById);
     app.route('/user/project/:user_id').get(ensureAuthorized, project_routes().findProjectByUserId);
+    app.route('/project/cards/:id').get(ensureAuthorized, project_routes().findProjectByUserId);
 
     app.route('/sprint/new').post(ensureAuthorized, sprint_routes().createSprint);
     app.route('/sprint/:id').post(ensureAuthorized, sprint_routes().updateSprint);
@@ -49,6 +50,7 @@ module.exports = function () {
     app.route('/card/:id').get(ensureAuthorized, card_routes().findCardById);
     app.route('/card/:id').delete(ensureAuthorized, card_routes().deleteCard);
     app.route('/user/card/:user_id').get(ensureAuthorized, card_routes().findCardByUserId);
+    app.route('/card/project/:project_id').get(ensureAuthorized, card_routes().findCardsByProjectId);
 
     function ensureAuthorized(req, res, next) {
         var bearerToken;
