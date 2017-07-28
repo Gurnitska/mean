@@ -44,6 +44,7 @@ module.exports = function () {
     app.route('/sprint/:id').post(ensureAuthorized, sprint_routes().updateSprint);
     app.route('/sprint/:id').get(ensureAuthorized, sprint_routes().findSprintById);
     app.route('/user/sprint/:user_id').get(ensureAuthorized, sprint_routes().findSprintByUserId);
+    app.route('/project/sprint/:project_id').get(ensureAuthorized, sprint_routes().findSprintByProjectId);
 
     app.route('/card/new').post(ensureAuthorized, card_routes().createCard);
     app.route('/card/:id').post(ensureAuthorized, card_routes().updateCard);

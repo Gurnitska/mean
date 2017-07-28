@@ -1,31 +1,53 @@
 'use strict';
 
 angular.module('mean.app.project')
-    .controller('ProjectDetailsCtrl', function ($scope, $state, $location, project, cards) {
+    .controller('ProjectDetailsCtrl', function ($scope, $state, $location, project, cards, sprints, ProjectService) {
         $scope.project = project;
         $scope.cards = cards;
+        $scope.sprints = sprints;
 
+        $scope.currentSprint = sprints.filter(function(item){
+            var tempDate = new Date();
+            var pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+            var currentDate = new Date(item.end_date.replace(pattern,'$3-$2-$1'));
+            return tempDate < currentDate;
+        })[0];
         console.log(cards);
+        console.log(sprints);
 
-        $scope.removeCard = function(){
-
-        }
 
         $scope.models = {
             selected: null,
-            lists: {"A": [], "B": [], "C":[]}
+            lists: {"TODO": [], "DOING": [], "DONE":[]},
+            backlog: []
         };
 
-        // Generate initial model
-        for (var i = 1; i <= 3; ++i) {
-            $scope.models.lists.A.push({label: "Item A" + i});
-            $scope.models.lists.B.push({label: "Item B" + i});
-            $scope.models.lists.C.push({label: "Item C" + i});
-        }
+        $scope.models.lists.TODO.push($scope.cards.filter(function(item){
+            return item.status === "TODO" && item.sprint_id === $scope.currentSprint._id;
+        }));
+        $scope.models.lists.DOING.push($scope.cards.filter(function(item){
+            return item.status === "DOING" && item.sprint_id === $scope.currentSprint._id;
+        }));
+        $scope.models.lists.DONE.push($scope.cards.filter(function(item){
+            return item.status === "DONE" && item.sprint_id === $scope.currentSprint._id;
+        }));
+        $scope.models.backlog.push($scope.cards.filter(function(item){
+            return item.sprint_id != $scope.currentSprint._id;
+        }));
 
-        // Model to JSON for demo purpose
-        $scope.$watch('models', function(model) {
-            $scope.modelAsJson = angular.toJson(model, true);
-        }, true);
+        $scope.onDrop = function(srcList, srcIndex, targetList, targetIndex, srcName, targetName) {
+            targetList.splice(targetIndex, 0, srcList[srcIndex]);
+            if (srcList == targetList && targetIndex <= srcIndex) srcIndex++;
+            srcList.splice(srcIndex, 1);
+            targetList[targetIndex].status = targetName;
+            if(!srcName){
+                targetList[targetIndex].sprint_id = $scope.currentSprint._id;
+            }else{
+                targetList[targetIndex].sprint_id = undefined;
+            }
+            ProjectService.updateStatus(targetList[targetIndex]);
+            return true;
+        };
+
 
 });

@@ -9,30 +9,13 @@
 		<div class="panel-heading">
 			<h4 class="panel-title">
 				<button class="btn-collapse" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-					Current sprint
+					{{currentSprint.name}} sprint {{currentSprint.start_date | date :  "dd.MM.y"}} - {{currentSprint.end_date | date :  "dd.MM.y"}}
 				</button>
 			</h4>
 		</div>
 		<div id="collapse1" class="panel-collapse collapse in">
 			<div class="panel-body simpleDemo">
 				<div class="row">
-					<!--<div class="col-lg-4 col-md-4 col-sm-4">-->
-						<!--<h3>TODO</h3>-->
-						<!--<div >-->
-
-
-						<!--</div>-->
-					<!--</div>-->
-					<!--<div class="col-lg-4 col-md-4 col-sm-4">-->
-						<!--<h3>IN PROGRESS</h3>-->
-						<!--<div >-->
-
-
-						<!--</div>-->
-					<!--</div>-->
-					<!--<div class="col-lg-4 col-md-4 col-sm-4">-->
-						<!--<h3>DONE</h3>-->
-					<!--</div>-->
 					<div ng-repeat="(listName, list) in models.lists">
 						<div class="panel panel-info col-lg-4 col-md-4 col-sm-4">
 
@@ -40,18 +23,17 @@
 									<h3 class="panel-title ng-binding">{{listName}}</h3>
 								</div>
 							<div class="panel-body">
-							<ul dnd-list="list">
+							<ul dnd-list="list[0]" dnd-drop="callback({targetList: list[0], targetIndex: index, targetName: listName})">
 								<!-- The dnd-draggable directive makes an element draggable and will
 									 transfer the object that was assigned to it. If an element was
 									 dragged away, you have to remove it from the original list
 									 yourself using the dnd-moved attribute -->
-								<li ng-repeat="item in list"
-									dnd-draggable="item"
-									dnd-moved="list.splice($index, 1)"
-									dnd-effect-allowed="move"
-									dnd-selected="models.selected = item"
-									ng-class="{'selected': models.selected === item}">
-									{{item.label}}
+								<li ng-repeat="item in list[0]"
+									dnd-draggable="null"
+									dnd-callback="onDrop(list[0], $index, targetList, targetIndex, listName, targetName)">
+									<a ng-href="#/card/{{item._id}}">
+										{{item.name}} - {{item.description}}
+									</a>
 								</li>
 							</ul>
 							</div>
@@ -70,7 +52,25 @@
 			</h4>
 		</div>
 		<div id="collapse3" class="panel-collapse collapse">
-			<div class="panel-body">Here will be place for cards with statuses</div>
+			<div class="panel-body simpleDemo">
+				<div class="row">
+					<div ng-repeat="list in models.backlog">
+						<ul dnd-list="list" dnd-drop="callback({targetList: list, targetIndex: index, targetName: listName})">
+							<!-- The dnd-draggable directive makes an element draggable and will
+								 transfer the object that was assigned to it. If an element was
+								 dragged away, you have to remove it from the original list
+								 yourself using the dnd-moved attribute -->
+							<li ng-repeat="item in list"
+								dnd-draggable="null"
+								dnd-callback="onDrop(list, $index, targetList, targetIndex, listName, targetName)">
+								<a ng-href="#/card/{{item._id}}">
+									{{item.name}} - {{item.description}}
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

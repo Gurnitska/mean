@@ -28,18 +28,43 @@ module.exports = function () {
     }
 
     functions.updateCard = function(req, res){
-        var options = {
-            $set: { name: req.query.name}
+        var options = {};
+        if(!req.query.sprint_id){
+            options = {
+                $set: {
+                    name : req.query.name,
+                    description : req.query.description,
+                    status : req.query.status,
+                    asignee_id : req.query.asignee_id,
+                    project_id : req.query.project_id
+                },
+                $unset : {
+                    sprint_id : ""
+                }
+            }
+        }else{
+            options = {
+                $set: {
+                    name : req.query.name,
+                    description : req.query.description,
+                    status : req.query.status,
+                    asignee_id : req.query.asignee_id,
+                    project_id : req.query.project_id,
+                    sprint_id : req.query.sprint_id
+                }
+            }
         }
-        Card.findByIdAndUpdate(req.query.id, options, { new: true },
-            function (err, sprint) {
+        console.log("options");
+        console.log(options);
+        Card.findByIdAndUpdate(req.params.id, options, { new: true },
+            function (err, card) {
                 if (err) {
                     res.send({
                         message: err.message
                     });
                     return res;
                 };
-                res.send(sprint);
+                res.send(card);
             });
     }
 
@@ -80,7 +105,6 @@ module.exports = function () {
                 });
                 return res;
             };
-            console.log("!!!!!!!!!!!!!" + card);
             res.send(card);
         });
     }

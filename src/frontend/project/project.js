@@ -15,14 +15,16 @@ angular.module('mean.app.project').config(function ($stateProvider) {
 			controller: 'ProjectDetailsCtrl',
 			resolve: {
 				project: function($stateParams, Common){
-					console.log()
 					var id = $stateParams.id;
 					return Common.getProjectById(id);
 				},
 				cards: function($stateParams, Common){
-                    console.log();
                     var id = $stateParams.id;
                     return Common.getCardsByProjectId(id);
+                },
+				sprints: function($stateParams, Common){
+                    var id = $stateParams.id;
+                    return Common.getSprintsByProjectId(id);
                 }
 			}
 		})
