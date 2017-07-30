@@ -7,7 +7,8 @@ module.exports = function () {
         var sprint = new Sprint({
             name: req.query.name,
             start_date:req.query.start_date,
-            end_date:req.query.end_date
+            end_date:req.query.end_date,
+            project_id : req.query.project_id
         });
         sprint.save()
             .then(function(sprint) {

@@ -42,7 +42,7 @@ angular.module('mean.app.project')
             targetList[targetIndex].status = targetName;
             if(!srcName){
                 targetList[targetIndex].sprint_id = $scope.currentSprint._id;
-            }else{
+            }else if(!targetName){
                 targetList[targetIndex].sprint_id = undefined;
             }
             ProjectService.updateStatus(targetList[targetIndex]);

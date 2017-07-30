@@ -4,11 +4,12 @@ module.exports = function () {
     var functions = {};
 
     functions.createProject = function(req, res){
-        var project = new Project({
+         var project = new Project({
             name: req.query.name,
             description: req.query.description,
-            users: [req.query.user_id]
+            users: req.query.users
         });
+        console.log(req.query);
         project.save()
             .then(function(project) {
                     console.log(project);
@@ -64,6 +65,12 @@ module.exports = function () {
             res.send(project);
         });
     }
+    functions.projects = function(req, res) {
+        Project.find({}, function(err, projects) {
+            console.log(projects);
+            res.send(projects);
+        });
+    };
 
     return functions;
 };

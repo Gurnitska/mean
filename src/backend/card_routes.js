@@ -10,9 +10,9 @@ module.exports = function () {
             description: req.query.description,
             status: "TODO",
             asignee_id: req.query.asignee_id,
-            sprint_id: req.query.sprint_id,
             project_id: req.query.project_id
         });
+        console.log(req.query);
         card.save()
             .then(function(card) {
                     console.log(card);

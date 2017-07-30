@@ -37,6 +37,7 @@ module.exports = function () {
     app.route('/project/new').post(ensureAuthorized, project_routes().createProject);
     app.route('/project/:id').delete(ensureAuthorized, project_routes().deleteProject);
     app.route('/project/:id').get(ensureAuthorized, project_routes().findProjectById);
+    app.route('/projects').get(ensureAuthorized, project_routes().projects);
     app.route('/user/project/:user_id').get(ensureAuthorized, project_routes().findProjectByUserId);
     app.route('/project/cards/:id').get(ensureAuthorized, project_routes().findProjectByUserId);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mean.app.project').service('ProjectService', function($http, Auth) {
+angular.module('mean.app.project').service('ProjectService', function($http) {
 
     this.updateStatus = function(card){
         return $http({
@@ -17,6 +17,4 @@ angular.module('mean.app.project').service('ProjectService', function($http, Aut
             }
         });
     }
-
-
 });
