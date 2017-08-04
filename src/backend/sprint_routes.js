@@ -71,7 +71,7 @@ module.exports = function () {
 
     functions.findSprintByProjectId = function(req, res){
         console.log(req);
-        Sprint.find({project_id:req.params.project_id}, function (err, project) {
+        Sprint.find({project_id:req.params.project_id}, function (err, sprints) {
             if (err) {
                 console.log(err);
                 res.send({
@@ -79,7 +79,8 @@ module.exports = function () {
                 });
                 return res;
             };
-            res.send(project);
+            console.log(sprints);
+            res.send(sprints);
         });
     }
 

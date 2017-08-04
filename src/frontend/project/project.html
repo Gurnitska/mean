@@ -5,11 +5,11 @@
 	</div>
 </div>
 <div class="panel-group">
-	<div class="panel panel-default">
+	<div class="panel panel-default" ng-show="currentSprint">
 		<div class="panel-heading">
 			<h4 class="panel-title">
 				<button class="btn-collapse" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-					{{currentSprint.name}} sprint {{currentSprint.start_date | date :  "dd.MM.y"}} - {{currentSprint.end_date | date :  "dd.MM.y"}}
+					{{currentSprint.name}} {{currentSprint.start_date | date :  "dd.MM.y"}} - {{currentSprint.end_date | date :  "dd.MM.y"}}
 				</button>
 			</h4>
 		</div>

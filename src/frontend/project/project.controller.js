@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mean.app.project')
-    .controller('ProjectDetailsCtrl', function ($scope, $state, $location, project, cards, sprints, ProjectService) {
+    .controller('ProjectDetailsCtrl', function ($scope, project, cards, sprints, CardService) {
         $scope.project = project;
         $scope.cards = cards;
         $scope.sprints = sprints;
@@ -45,7 +45,7 @@ angular.module('mean.app.project')
             }else if(!targetName){
                 targetList[targetIndex].sprint_id = undefined;
             }
-            ProjectService.updateStatus(targetList[targetIndex]);
+            CardService.updateCard(targetList[targetIndex]);
             return true;
         };
 

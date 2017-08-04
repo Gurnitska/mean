@@ -42,7 +42,7 @@ angular.module('task2.common').service('Common', function($resource) {
 		}
 	}
 
-	this.getProjects = function(){
+	this.getUserProjects = function(){
 		if (projects) {
 			return projects;
 		}

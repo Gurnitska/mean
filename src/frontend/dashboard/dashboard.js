@@ -11,7 +11,7 @@ angular.module('mean.app.dashboard').config(function ($stateProvider) {
             controller: 'DashboardCtrl',
             resolve: {
                 projects: function(Common){
-                    return Common.getProjects();
+                    return Common.getUserProjects();
                 },
                 cards: function(Common){
                     return Common.getCards();

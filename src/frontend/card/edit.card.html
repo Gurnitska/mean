@@ -1,0 +1,50 @@
+<form name="form" class="form-horizontal" autocomplete="off">
+    <h1>{{card.name}}</h1>
+    <div class="row m-t-20">
+
+    </div>
+    <div class="row">
+        <div class="col-sm-9">
+            <dl>
+                <dt>Description: </dt>
+                <dd>
+                    <input type="text" class="form-control" ng-model="card.description" value="{{card.description}}"/>
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <dl>
+                <dt>Asignee: </dt>
+                <dd>
+                    <input type="text" class="form-control" ng-model="card.asignee_id" value="{{card.asignee_id}}"/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>Status: </dt>
+                <dd>
+                    <input type="text" class="form-control" ng-model="card.status" value="{{card.status}}"/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>Project: </dt>
+                <dd>
+                    {{updateEmptyProjectSprint(card.project_id)}}
+                </dd>
+            </dl>
+            <dl>
+                <dt>Sprint: </dt>
+                <dd>
+                    <!--<input type="text" class="form-control" ng-model="card.sprint_id" value="{{updateEmptyProjectSprint(card.sprint_id)}}"/>-->
+                    <span class="input-label p-t-0" ng-model='card.sprint_id'>
+                    <select class="form-control" ng-options="option.name for option in sprints" ng-model="card.sprint_id"></select></span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 60px;">
+        <div class="col-xs-12">
+            <button class="btn btn-primary pull-right" ng-click="save(card)">Save</button>
+            <button class="btn btn-primary pull-right" ui-sref="mean.app.card.details({id: card._id})">Cancel</button>
+        </div>
+    </div>
+</form>

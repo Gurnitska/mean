@@ -14,34 +14,8 @@ angular.module('mean').controller('AppCtrl', function ($scope, Auth, dialog, $ht
 
     $scope.createNew = function () {
         var dialogData = {
-            users: function users(){
-                return $http({
-                    method: 'GET',
-                    url: 'http://localhost:3000/user',
-                }).then(function successCallback(response) {
-                    console.log(response);
-                    return response.data;
-                }, function errorCallback(response) {
-                    console.log(response);
-                    return {
-                        common: response.data.message
-                    }
-                });
-            },
-            projects: function projects(){
-                return $http({
-                    method: 'GET',
-                    url: 'http://localhost:3000/projects',
-                }).then(function successCallback(response) {
-                    console.log(response);
-                    return response.data;
-                }, function errorCallback(response) {
-                    console.log(response);
-                    return {
-                        common: response.data.message
-                    }
-                });
-            }
+            users: Common.getUsers(),
+            projects: Common.getAllProjects()
         }
         var modal = dialog.showCustomDialog('frontend/dialogs/create_new.html', 'CreateNewCtrl', dialogData);
         modal.result.then(function () {

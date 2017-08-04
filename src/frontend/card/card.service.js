@@ -1,8 +1,14 @@
 'use strict';
 
-angular.module('mean.app.project').service('ProjectService', function($http) {
+angular.module('mean.app.card').service('CardService', function($http) {
 
-    this.updateStatus = function(card){
+    this.updateCard = function(card){
+        if(typeof card.asignee_id === 'object'){
+            card.asignee_id = card.asignee_id._id;
+        }
+        if(typeof card.sprint_id === 'object') {
+            card.sprint_id = card.sprint_id._id;
+        }
         return $http({
             method: 'POST',
             url: 'http://localhost:3000/card/' + card._id,

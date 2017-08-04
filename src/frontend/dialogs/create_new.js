@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mean')
-    .controller('CreateNewCtrl', function ($scope, $uibModalInstance, users, projects, Common) {
+    .controller('CreateNewCtrl', function ($scope, $uibModalInstance, users, projects, Common, $state) {
         $scope.item = {};
         $scope.users = users;
         $scope.projects = projects;
@@ -45,6 +45,7 @@ angular.module('mean')
                 Common.saveCard(item);
             }
             $uibModalInstance.close();
+            $state.reload();
         }
 
     });

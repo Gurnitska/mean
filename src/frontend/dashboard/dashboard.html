@@ -1,17 +1,31 @@
-<h1>Here will be user dashboard</h1>
-<div class="row m-t-20">
+<div class="row">
+
 	<div class="col-sm-6">
-		<span>List of projects</span>
+		<h3>Project involved in</h3>
 		<ul ng-repeat="item in projects">
 			<li><a ui-sref="mean.app.project.view({id: item._id})">{{item.name}}</a>
 			</li>
 		</ul>
 	</div>
 	<div class="col-sm-6">
-		<span>List of cards</span>
-		<ul ng-repeat="item in cards">
-			<li><a ui-sref="mean.app.card.edit({id: item._id})">{{item.name}}</a>
-			</li>
-		</ul>
+		<h3>Assigned cards</h3>
+		<table id="myTable" class="tablesorter">
+			<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Status</th>
+				<th>Project</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="item in cards">
+				<td>{{$index + 1}}</td>
+				<td><a ui-sref="mean.app.card.details({id: item._id})">{{item.name}}</a></td>
+				<td><span>{{item.status}}</span></td>
+				<td><span>{{getProjectName(item.project_id)}}</span></td>
+			</tr>
+			</tbody>
+		</table>
 	</div>
 </div>

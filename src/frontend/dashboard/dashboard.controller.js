@@ -9,4 +9,10 @@ angular.module('mean.app.dashboard')
         console.log(projects);
         console.log(cards);
 
+        $scope.getProjectName = function(project_id){
+            return $scope.projects.filter(function(item){
+                return item._id === project_id;
+            })[0].name;
+        }
+
 });

@@ -7,7 +7,7 @@ angular.module('mean.app.card').config(function ($stateProvider, $provide) {
             abstract: true,
             template: '<ui-view/>'
 		})
-		.state('mean.app.card.edit', {
+		.state('mean.app.card.details', {
 			url: '/{id:\\w+}',
 			templateUrl: 'frontend/card/card.html',
 			controller: 'CardDetailsCtrl',
@@ -18,4 +18,22 @@ angular.module('mean.app.card').config(function ($stateProvider, $provide) {
 				}
 			}
 		})
+        .state('mean.app.card.edit', {
+            url: '/edit/{id:\\w+}',
+            templateUrl: 'frontend/card/edit.card.html',
+            controller: 'EditCardCtrl',
+            resolve: {
+                card: function($stateParams, Common){
+                    var id = $stateParams.id;
+                    return Common.getCardById(id);
+                },
+				users: function(Common){
+                	return Common.getUsers();
+				},
+				sprints: function(card, Common){
+					console.log(card);
+					return Common.getSprintsByProjectId(card.project_id);
+				}
+            }
+        })
 	})

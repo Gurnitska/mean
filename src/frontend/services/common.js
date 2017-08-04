@@ -36,7 +36,7 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
         });
     }
 
-    this.getProjects = function(){
+    this.getUserProjects = function(){
         return $http({
             method: 'GET',
             url: 'http://localhost:3000/user/project/' + Auth.getToken(),
@@ -50,6 +50,21 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
             }
         });
 
+    }
+
+    this.getAllProjects = function projects(){
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:3000/projects',
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+            return {
+                common: response.data.message
+            }
+        });
     }
 
     this.getProjectById = function(id){
@@ -142,6 +157,21 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
             method: 'POST',
             url: 'http://localhost:3000/card/new',
             params: card
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+            return {
+                common: response.data.message
+            }
+        });
+    }
+
+    this.getUsers = function(){
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:3000/user',
         }).then(function successCallback(response) {
             console.log(response);
             return response.data;

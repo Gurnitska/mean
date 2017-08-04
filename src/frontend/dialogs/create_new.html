@@ -13,6 +13,7 @@
                     ng-model="type"></select>
         </div>
     </div>
+    <br/>
     <div ng-show="type.id == 'project'">
         <div class="row">
             <div class="col-sm-3">
@@ -24,6 +25,7 @@
                 </span>
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-sm-3">
                 Description
@@ -34,6 +36,7 @@
                 </span>
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-sm-3">
                 Add users:
@@ -58,15 +61,17 @@
                 </span>
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-sm-3">
                 Project
             </div>
             <div class="col-sm-9">
-                <span class="input-label p-t-0" ng-model='item.project_id'>Here will be list of exist projects
+                <span class="input-label p-t-0" ng-model='item.project_id'>
                 <select class="form-control" ng-options="option.name for option in projects" ng-model="item.project_id"></select></span>
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-sm-3">
                 Start date
@@ -77,6 +82,7 @@
                 </span>
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-sm-3">
                 End date
@@ -99,6 +105,7 @@
                 </span>
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-sm-3">
                 Description
@@ -109,6 +116,7 @@
                 </span>
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-sm-3">
                 Project
@@ -118,6 +126,7 @@
                 <select class="form-control" ng-options="option.name for option in projects" ng-model="item.project_id"></select></span></span>
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-sm-3">
                 Assignee:
