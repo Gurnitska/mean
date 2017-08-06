@@ -35,7 +35,7 @@ module.exports = function () {
     app.route('/user/:id').get(user_routes().findUserById);
 
     app.route('/project/new').post(ensureAuthorized, project_routes().createProject);
-    app.route('/project/:id').delete(ensureAuthorized, project_routes().deleteProject);
+    app.route('/project/delete/:id').post(ensureAuthorized, project_routes().deleteProject);
     app.route('/project/:id').get(ensureAuthorized, project_routes().findProjectById);
     app.route('/projects').get(ensureAuthorized, project_routes().projects);
     app.route('/user/project/:user_id').get(ensureAuthorized, project_routes().findProjectByUserId);
@@ -50,7 +50,8 @@ module.exports = function () {
     app.route('/card/new').post(ensureAuthorized, card_routes().createCard);
     app.route('/card/:id').post(ensureAuthorized, card_routes().updateCard);
     app.route('/card/:id').get(ensureAuthorized, card_routes().findCardById);
-    app.route('/card/:id').delete(ensureAuthorized, card_routes().deleteCard);
+    app.route('/card/delete/:id').post(ensureAuthorized, card_routes().deleteCard);
+    app.route('/cards/deleteids').post(ensureAuthorized, card_routes().deleteCards);
     app.route('/user/card/:user_id').get(ensureAuthorized, card_routes().findCardByUserId);
     app.route('/card/project/:project_id').get(ensureAuthorized, card_routes().findCardsByProjectId);
 

@@ -1,8 +1,13 @@
-<h1>{{card.name}}</h1>
-<a ui-sref="mean.app.card.edit({id: card._id})">Edit</a>
-<div class="row m-t-20">
-
+<div class="row">
+    <div class="col-sm-9">
+        <h1>{{card.name}}</h1>
+    </div>
+    <div class="col-sm-3">
+        <button class="btn btn-default pull-right m-t-30" ui-sref="mean.app.card.edit({id: card._id})">Edit</button>
+        <button class="btn btn-default pull-right m-t-30 m-r-5" ng-click="deleteCard(card)">Delete</button>
+    </div>
 </div>
+<hr class="hr-card"/>
 <div class="row">
     <div class="col-sm-9">
         <dl>
@@ -12,16 +17,16 @@
     </div>
     <div class="col-sm-3">
         <dl>
-            <dt>Asignee: </dt><dd>{{card.asignee_id}}</dd>
+            <dt>Asignee: </dt><dd>{{card.asignee_id.email}}</dd>
         </dl>
         <dl>
             <dt>Status: </dt><dd>{{card.status}}</dd>
         </dl>
         <dl>
-            <dt>Project: </dt><dd>{{updateEmptyProjectSprint(card.project_id)}}</dd>
+            <dt>Project: </dt><dd><a ui-sref="mean.app.project.view({id: card.project_id._id})">{{card.project_id.name}}</a></dd>
         </dl>
         <dl>
-            <dt>Sprint: </dt><dd>{{updateEmptyProjectSprint(card.sprint_id)}}</dd>
+            <dt>Sprint: </dt><dd>{{card.sprint_id.name}}</dd>
         </dl>
     </div>
 </div>

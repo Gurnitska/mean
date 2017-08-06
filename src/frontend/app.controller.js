@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mean').controller('AppCtrl', function ($scope, Auth, dialog, $http) {
+angular.module('mean').controller('AppCtrl', function ($scope, Auth, dialog, $http, Common) {
 	console.log("app controller");
 
 	$scope.logOut = function(){

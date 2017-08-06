@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mean.app.project')
-    .controller('ProjectDetailsCtrl', function ($scope, project, cards, sprints, CardService) {
+    .controller('ProjectDetailsCtrl', function ($scope, dialog, project, cards, sprints, Common, CardService) {
         $scope.project = project;
         $scope.cards = cards;
         $scope.sprints = sprints;
@@ -12,9 +12,6 @@ angular.module('mean.app.project')
             var currentDate = new Date(item.end_date.replace(pattern,'$3-$2-$1'));
             return tempDate < currentDate;
         })[0];
-        console.log(cards);
-        console.log(sprints);
-
 
         $scope.models = {
             selected: null,
@@ -23,15 +20,18 @@ angular.module('mean.app.project')
         };
 
         $scope.models.lists.TODO.push($scope.cards.filter(function(item){
-            return item.status === "TODO" && item.sprint_id === $scope.currentSprint._id;
+            return item.status === "TODO" && $scope.currentSprint && item.sprint_id === $scope.currentSprint._id;
         }));
         $scope.models.lists.DOING.push($scope.cards.filter(function(item){
-            return item.status === "DOING" && item.sprint_id === $scope.currentSprint._id;
+            return item.status === "DOING" && $scope.currentSprint && item.sprint_id === $scope.currentSprint._id;
         }));
         $scope.models.lists.DONE.push($scope.cards.filter(function(item){
-            return item.status === "DONE" && item.sprint_id === $scope.currentSprint._id;
+            return item.status === "DONE" && $scope.currentSprint && item.sprint_id === $scope.currentSprint._id;
         }));
         $scope.models.backlog.push($scope.cards.filter(function(item){
+            if(!$scope.currentSprint){
+                return true;
+            }
             return item.sprint_id != $scope.currentSprint._id;
         }));
 
@@ -48,6 +48,19 @@ angular.module('mean.app.project')
             CardService.updateCard(targetList[targetIndex]);
             return true;
         };
+
+        $scope.deleteProject = function(){
+            var id = $scope.project._id;
+            var dialogData = {
+                project: Common.getProjectById(id),
+                cards: Common.getCardsByProjectId(id),
+                sprints: Common.getSprintsByProjectId(id)
+            }
+            var modal = dialog.showCustomDialog('frontend/dialogs/delete_project.html', 'DeleteProjectCtrl', dialogData);
+            modal.result.then(function () {
+                // TODO
+            });
+        }
 
 
 });

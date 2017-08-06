@@ -54,17 +54,9 @@ module.exports = function () {
 
     functions.deleteProject = function(req, res){
         console.log(req);
-        Project.remove(req.params.id, function (err, project) {
-            if (err) {
-                console.log(err);
-                res.send({
-                    message: err.message
-                });
-                return res;
-            };
-            res.send(project);
-        });
+        Project.find({_id:req.params.id}).remove().exec();
     }
+
     functions.projects = function(req, res) {
         Project.find({}, function(err, projects) {
             console.log(projects);

@@ -1,18 +1,12 @@
 'use strict';
 
 angular.module('mean.app.card')
-    .controller('CardDetailsCtrl', function ($scope, $state, $location, card) {
+    .controller('CardDetailsCtrl', function ($scope, $state, $location,  CardService, card) {
     	$scope.card = card;
-    	
         console.log("card controller");
 
-        $scope.updateEmptyProjectSprint = function(property){
-            if(!property){
-                return "Not assign";
-            }else{
-                return property;
-            }
+        $scope.deleteCard = function(card){
+            CardService.deleteCard(card);
+            $state.go('mean.app.dashboard');
         }
-
-
 });

@@ -1,8 +1,6 @@
 <form name="form" class="form-horizontal" autocomplete="off">
     <h1>{{card.name}}</h1>
-    <div class="row m-t-20">
-
-    </div>
+    <hr class="hr-card"/>
     <div class="row">
         <div class="col-sm-9">
             <dl>
@@ -16,13 +14,15 @@
             <dl>
                 <dt>Asignee: </dt>
                 <dd>
-                    <input type="text" class="form-control" ng-model="card.asignee_id" value="{{card.asignee_id}}"/>
+                    <select class="form-control" ng-options="option.email for option in users" ng-model="card.asignee_id"></select></span>
+                    <!--<input type="text" class="form-control" ng-model="card.asignee_id" value="{{card.asignee_id}}"/>-->
                 </dd>
             </dl>
             <dl>
                 <dt>Status: </dt>
                 <dd>
-                    <input type="text" class="form-control" ng-model="card.status" value="{{card.status}}"/>
+                    <select class="form-control" ng-options="option.name for option in statuses" ng-model="card.status"></select></span>
+                    <!--<input type="text" class="form-control" ng-model="card.status" value="{{card.status}}"/>-->
                 </dd>
             </dl>
             <dl>
@@ -44,7 +44,7 @@
     <div class="row" style="margin-bottom: 60px;">
         <div class="col-xs-12">
             <button class="btn btn-primary pull-right" ng-click="save(card)">Save</button>
-            <button class="btn btn-primary pull-right" ui-sref="mean.app.card.details({id: card._id})">Cancel</button>
+            <button class="btn btn-default pull-right m-r-5" ui-sref="mean.app.card.details({id: card._id})">Cancel</button>
         </div>
     </div>
 </form>

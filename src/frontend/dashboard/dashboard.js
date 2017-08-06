@@ -14,7 +14,7 @@ angular.module('mean.app.dashboard').config(function ($stateProvider) {
                     return Common.getUserProjects();
                 },
                 cards: function(Common){
-                    return Common.getCards();
+                    return Common.getUserCards();
                 }
             }
         });

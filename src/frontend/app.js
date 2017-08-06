@@ -37,7 +37,9 @@ angular.module('mean').config(function ($stateProvider, $urlRouterProvider, $htt
             },
             'responseError': function(response) {
                 if(response.status === 401 || response.status === 403) {
-                    $location.path('/auth');
+                    // $location.path('#/auth');
+                    $stateProvider.go('mean.app.auth');
+                    // $state.go('mean.app.auth');
                 }
                 return $q.reject(response);
             }

@@ -13,21 +13,6 @@ angular.module('mean')
             ];
         $scope.type =  $scope.availableTypes[0]; //This sets the default value of the select in the ui
 
-
-        $scope.getIconClass = function () {
-            if ($scope.loading) {
-                return 'fa-spinner fa-spin';
-            }
-            else {
-                if ($scope.error) {
-                    return 'fa-close';
-                }
-                else {
-                    return $scope.imported ? 'fa-check' : '';
-                }
-            }
-        }
-
         $scope.close = function () {
             $uibModalInstance.close();
         };
