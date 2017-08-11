@@ -5,21 +5,14 @@ angular.module('mean.app.common', [
 
 angular.module('mean.app.common').service('Common', function($http, Auth) {
     console.log("common service");
-    var userCards;
-    var userProjects;
-    var users;
 
     this.getUserCards = function(){
-        if(userCards){
-            return userCards;
-        }
         return $http({
             method: 'GET',
             url: 'http://localhost:3000/user/card/' + Auth.getToken(),
         }).then(function successCallback(response) {
             console.log(response);
-            userCards = response.data;
-            return userCards;
+            return response.data;
         }, function errorCallback(response) {
             console.log(response);
             return {
@@ -44,16 +37,12 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
     }
 
     this.getUserProjects = function(){
-        // if(userProjects){
-        //     return userProjects;
-        // }
         return $http({
             method: 'GET',
             url: 'http://localhost:3000/user/project/' + Auth.getToken(),
         }).then(function successCallback(response) {
             console.log(response);
-            userProjects = response.data
-            return userProjects;
+            return response.data;
         }, function errorCallback(response) {
             console.log(response);
             return {
@@ -194,21 +183,49 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
     }
 
     this.getUsers = function(){
-        // if(users){
-        //     return users;
-        // }
         return $http({
             method: 'GET',
             url: 'http://localhost:3000/user',
         }).then(function successCallback(response) {
             console.log(response);
-            users = response.data
-            return users;
+            return response.data;
         }, function errorCallback(response) {
             console.log(response);
             return {
                 common: response.data.message
             }
         });
+    }
+
+    this.getSprintById = function(id){
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:3000/sprint/' + id,
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+            return {
+                common: response.data.message
+            }
+        });
+
+    }
+    this.updateSprint = function(sprint){
+        return $http({
+            method: 'POST',
+            url: 'http://localhost:3000/sprint/' + sprint._id,
+            params: sprint
+        }).then(function successCallback(response) {
+            console.log(response);
+            return response.data;
+        }, function errorCallback(response) {
+            console.log(response);
+            return {
+                common: response.data.message
+            }
+        });
+
     }
 })

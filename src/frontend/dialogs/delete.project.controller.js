@@ -17,10 +17,12 @@ angular.module('mean.app.project')
 
         $scope.delete = function(){
             Common.deleteProject($scope.project);
-            CardService.deleteCards($scope.cards.map(function(a) {
-                console.log(a);
-                return a._id;
-            }))
+            if(cards) {
+                CardService.deleteCards($scope.cards.map(function (a) {
+                    console.log(a);
+                    return a._id;
+                }))
+            }
             $uibModalInstance.close();
             $state.go('mean.app.dashboard');
         }

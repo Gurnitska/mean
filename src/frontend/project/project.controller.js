@@ -6,42 +6,47 @@ angular.module('mean.app.project')
         $scope.cards = cards;
         $scope.sprints = sprints;
 
-        $scope.currentSprint = sprints.filter(function(item){
+        $scope.isCollapsed = function(item){
             var tempDate = new Date();
             var pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
-            var currentDate = new Date(item.end_date.replace(pattern,'$3-$2-$1'));
-            return tempDate < currentDate;
-        })[0];
+            var endDate = new Date(item.end_date.replace(pattern,'$3-$2-$1'));
+            var startDate = new Date(item.start_date.replace(pattern,'$3-$2-$1'));
+            return (tempDate < endDate && tempDate > startDate)? 'collapse in' : "collapse";
+        };
 
+        for (var i = 0; i < $scope.sprints.length; i++) {
+            $scope.sprints[i].models = {
+                selected: null,
+                lists: {"TODO": [], "DOING": [], "DONE": []}
+            };
+        }
         $scope.models = {
-            selected: null,
-            lists: {"TODO": [], "DOING": [], "DONE":[]},
             backlog: []
         };
 
-        $scope.models.lists.TODO.push($scope.cards.filter(function(item){
-            return item.status === "TODO" && $scope.currentSprint && item.sprint_id === $scope.currentSprint._id;
-        }));
-        $scope.models.lists.DOING.push($scope.cards.filter(function(item){
-            return item.status === "DOING" && $scope.currentSprint && item.sprint_id === $scope.currentSprint._id;
-        }));
-        $scope.models.lists.DONE.push($scope.cards.filter(function(item){
-            return item.status === "DONE" && $scope.currentSprint && item.sprint_id === $scope.currentSprint._id;
-        }));
+
+        for (var i = 0; i < $scope.sprints.length; i++) {
+            $scope.sprints[i].models.lists.TODO.push($scope.cards.filter(function (item) {
+                return item.status === "TODO" && item.sprint_id === $scope.sprints[i]._id;
+            }));
+            $scope.sprints[i].models.lists.DOING.push($scope.cards.filter(function (item) {
+                return item.status === "DOING" && item.sprint_id === $scope.sprints[i]._id;
+            }));
+            $scope.sprints[i].models.lists.DONE.push($scope.cards.filter(function (item) {
+                return item.status === "DONE" && item.sprint_id === $scope.sprints[i]._id;
+            }));
+        }
         $scope.models.backlog.push($scope.cards.filter(function(item){
-            if(!$scope.currentSprint){
-                return true;
-            }
-            return item.sprint_id != $scope.currentSprint._id;
+            return !item.sprint_id;
         }));
 
-        $scope.onDrop = function(srcList, srcIndex, targetList, targetIndex, srcName, targetName) {
+        $scope.onDrop = function(srcList, srcIndex, targetList, targetIndex, srcName, targetName, sprintId) {
             targetList.splice(targetIndex, 0, srcList[srcIndex]);
             if (srcList == targetList && targetIndex <= srcIndex) srcIndex++;
             srcList.splice(srcIndex, 1);
             targetList[targetIndex].status = targetName;
-            if(!srcName){
-                targetList[targetIndex].sprint_id = $scope.currentSprint._id;
+            if(sprintId){
+                targetList[targetIndex].sprint_id = sprintId;
             }else if(!targetName){
                 targetList[targetIndex].sprint_id = undefined;
             }
@@ -57,6 +62,16 @@ angular.module('mean.app.project')
                 sprints: Common.getSprintsByProjectId(id)
             }
             var modal = dialog.showCustomDialog('frontend/dialogs/delete_project.html', 'DeleteProjectCtrl', dialogData);
+            modal.result.then(function () {
+                // TODO
+            });
+        }
+
+        $scope.editSprint = function(id){
+            var dialogData = {
+                sprint: Common.getSprintById(id)
+            }
+            var modal = dialog.showCustomDialog('frontend/dialogs/edit_sprint.html', 'EditSprintCtrl', dialogData);
             modal.result.then(function () {
                 // TODO
             });

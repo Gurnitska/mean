@@ -5,6 +5,17 @@
     <h3 class="modal-title">Delete project</h3>
 </div>
 <div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+        <h3>Are you sure to delete "{{project.name}}"?</h3>
+        <div ng-show="cards">
+            <h4>The following cards also will be deleted:</h4>
+            <ul>
+                <li ng-repeat="item in cards"><a ui-sref="mean.app.card.details({id: item._id})" target="_blank">{{item.name}}</a></li>
+            </ul>
+        </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-sm-4 col-sm-offset-6">

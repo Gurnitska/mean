@@ -32,7 +32,7 @@ angular.module('mean.app.card').config(function ($stateProvider, $provide) {
 				},
 				sprints: function(card, Common){
 					console.log(card);
-					return Common.getSprintsByProjectId(card.project_id);
+					return Common.getSprintsByProjectId(card.project_id._id);
 				}
             }
         })

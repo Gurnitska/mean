@@ -8,32 +8,29 @@
 </div>
 <hr/>
 <div class="panel-group">
-	<div class="panel panel-default" ng-show="currentSprint">
+	<div class="panel panel-default" ng-show="sprint" ng-repeat="sprint in sprints">
 		<div class="panel-heading">
 			<h4 class="panel-title">
-				<button class="btn-collapse" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-					{{currentSprint.name}} {{currentSprint.start_date | date :  "dd.MM.y"}} - {{currentSprint.end_date | date :  "dd.MM.y"}}
+				<button class="btn-collapse" data-toggle="collapse" data-target="#collapse{{sprint._id}}" aria-expanded="true" aria-controls="collapse1">
+					{{sprint.name}} {{sprint.start_date | date :  "dd.MM.y"}} - {{sprint.end_date | date :  "dd.MM.y"}}
 				</button>
+				<button class="btn btn-default pull-right m-t--8" ng-click="editSprint(sprint._id)">Edit sprint</button>
 			</h4>
+
 		</div>
-		<div id="collapse1" class="panel-collapse collapse in">
+		<div id="collapse{{sprint._id}}" class="panel-collapse" ng-class="isCollapsed(sprint)">
 			<div class="panel-body simpleDemo">
 				<div class="row">
-					<div ng-repeat="(listName, list) in models.lists">
+					<div ng-repeat="(listName, list) in sprint.models.lists">
 						<div class="panel panel-info col-lg-4 col-md-4 col-sm-4">
-
 								<div class="panel-heading">
 									<h3 class="panel-title ng-binding">{{listName}}</h3>
 								</div>
 							<div class="panel-body">
-							<ul dnd-list="list[0]" dnd-drop="callback({targetList: list[0], targetIndex: index, targetName: listName})">
-								<!-- The dnd-draggable directive makes an element draggable and will
-									 transfer the object that was assigned to it. If an element was
-									 dragged away, you have to remove it from the original list
-									 yourself using the dnd-moved attribute -->
+							<ul dnd-list="list[0]" dnd-drop="callback({targetList: list[0], targetIndex: index, targetName: listName, sprintId: $parent.sprint._id})">
 								<li ng-repeat="item in list[0]"
 									dnd-draggable="null"
-									dnd-callback="onDrop(list[0], $index, targetList, targetIndex, listName, targetName)">
+									dnd-callback="onDrop(list[0], $index, targetList, targetIndex, listName, targetName, sprintId)">
 									<a  ui-sref="mean.app.card.details({id: item._id})">
 										{{item.name}} - {{item.description}}
 									</a>
@@ -58,10 +55,10 @@
 			<div class="panel-body simpleDemo">
 				<div class="row">
 					<div ng-repeat="list in models.backlog">
-						<ul dnd-list="list" dnd-drop="callback({targetList: list, targetIndex: index, targetName: listName})">
+						<ul dnd-list="list" dnd-drop="callback({targetList: list, targetIndex: index, targetName: listName, sprintId: $parent.sprint._id})">
 							<li ng-repeat="item in list"
 								dnd-draggable="null"
-								dnd-callback="onDrop(list, $index, targetList, targetIndex, listName, targetName)">
+								dnd-callback="onDrop(list, $index, targetList, targetIndex, listName, targetName, sprintId)">
 								<a  ui-sref="mean.app.card.details({id: item._id})">
 									{{item.name}} - {{item.description}}
 								</a>

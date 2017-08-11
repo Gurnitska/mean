@@ -12,11 +12,11 @@ angular.module('mean.app.card')
         ]
 
         $scope.card.sprint_id = $scope.sprints.filter(function(item){
-            return item._id === $scope.card.sprint_id;
+            return item._id === $scope.card.sprint_id._id;
         })[0];
 
         $scope.card.asignee_id = $scope.users.filter(function(item){
-            return item._id === $scope.card.asignee_id;
+            return item._id === $scope.card.asignee_id._id;
         })[0];
 
         $scope.card.status = $scope.statuses.filter(function(item){
