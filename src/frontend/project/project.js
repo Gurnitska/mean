@@ -14,17 +14,17 @@ angular.module('mean.app.project').config(function ($stateProvider) {
 			templateUrl: 'frontend/project/project.html',
 			controller: 'ProjectDetailsCtrl',
 			resolve: {
-				project: function($stateParams, Common){
+				project: function($stateParams, ProjectService){
 					var id = $stateParams.id;
-					return Common.getProjectById(id);
+					return ProjectService.getProjectById(id);
 				},
-				cards: function($stateParams, Common){
+				cards: function($stateParams, ProjectService){
                     var id = $stateParams.id;
-                    return Common.getCardsByProjectId(id);
+                    return ProjectService.getCardsByProjectId(id);
                 },
-				sprints: function($stateParams, Common){
+				sprints: function($stateParams, ProjectService){
                     var id = $stateParams.id;
-                    return Common.getSprintsByProjectId(id);
+                    return ProjectService.getSprintsByProjectId(id);
                 }
 			}
 		})

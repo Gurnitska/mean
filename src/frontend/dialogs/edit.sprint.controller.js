@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mean.app.project')
-    .controller('EditSprintCtrl', function ($scope, $uibModalInstance, sprint, Common, $state) {
+    .controller('EditSprintCtrl', function ($scope, $uibModalInstance, sprint, ProjectService, $state) {
         $scope.item = {};
         $scope.sprint = sprint;
 
@@ -14,7 +14,7 @@ angular.module('mean.app.project')
         };
 
         $scope.save = function(){
-            Common.updateSprint($scope.sprint);
+            ProjectService.updateSprint($scope.sprint);
             $uibModalInstance.close();
             $state.go('mean.app.project.view', $scope.sprint.project_id, { reload: true });
         }

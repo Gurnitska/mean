@@ -9,22 +9,7 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
     this.getUserCards = function(){
         return $http({
             method: 'GET',
-            url: 'http://localhost:3000/user/card/' + Auth.getToken(),
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-    }
-
-    this.getCardById = function(id){
-        return $http({
-            method: 'GET',
-            url: 'http://localhost:3000/card/' + id,
+            url: 'http://localhost:3000/users/' + Auth.getToken() + '/cards',
         }).then(function successCallback(response) {
             console.log(response);
             return response.data;
@@ -39,7 +24,7 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
     this.getUserProjects = function(){
         return $http({
             method: 'GET',
-            url: 'http://localhost:3000/user/project/' + Auth.getToken(),
+            url: 'http://localhost:3000/users/' + Auth.getToken()+ '/projects' ,
         }).then(function successCallback(response) {
             console.log(response);
             return response.data;
@@ -49,7 +34,6 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
                 common: response.data.message
             }
         });
-
     }
 
     this.getAllProjects = function projects(){
@@ -67,125 +51,10 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
         });
     }
 
-    this.getProjectById = function(id){
-        return $http({
-            method: 'GET',
-            url: 'http://localhost:3000/project/' + id,
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-
-    }
-
-    this.getCardsByProjectId = function(id){
-        return $http({
-            method: 'GET',
-            url: 'http://localhost:3000/card/project/' + id,
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-
-    }
-    this.getSprintsByProjectId = function(id){
-        return $http({
-            method: 'GET',
-            url: 'http://localhost:3000/project/sprint/' + id,
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-
-    }
-    this.saveProject = function(project){
-        project.users = project.users.map(function(a) {
-            return a._id;
-        });
-        return $http({
-            method: 'POST',
-            url: 'http://localhost:3000/project/new',
-            params: project
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-    }
-
-    this.deleteProject = function(project){
-        return $http({
-            method: 'POST',
-            url: 'http://localhost:3000/project/delete/' + project._id,
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-    }
-
-    this.saveSprint = function(sprint){
-        sprint.project_id = sprint.project_id._id;
-        return $http({
-            method: 'POST',
-            url: 'http://localhost:3000/sprint/new',
-            params: sprint
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-    }
-
-    this.saveCard = function(card){
-        card.asignee_id = card.asignee_id._id;
-        card.project_id = card.project_id._id;
-        return $http({
-            method: 'POST',
-            url: 'http://localhost:3000/card/new',
-            params: card
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-    }
-
     this.getUsers = function(){
         return $http({
             method: 'GET',
-            url: 'http://localhost:3000/user',
+            url: 'http://localhost:3000/users',
         }).then(function successCallback(response) {
             console.log(response);
             return response.data;
@@ -197,35 +66,4 @@ angular.module('mean.app.common').service('Common', function($http, Auth) {
         });
     }
 
-    this.getSprintById = function(id){
-        return $http({
-            method: 'GET',
-            url: 'http://localhost:3000/sprint/' + id,
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-
-    }
-    this.updateSprint = function(sprint){
-        return $http({
-            method: 'POST',
-            url: 'http://localhost:3000/sprint/' + sprint._id,
-            params: sprint
-        }).then(function successCallback(response) {
-            console.log(response);
-            return response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-            return {
-                common: response.data.message
-            }
-        });
-
-    }
 })

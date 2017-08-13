@@ -5,6 +5,7 @@
     <h3 class="modal-title">Create</h3>
 </div>
 <div class="modal-body">
+    <form name="form" class="css-form" novalidate>
     <div class="row">
         <div class="col-sm-3">Select type:</div>
         <div class="col-sm-9">
@@ -17,123 +18,179 @@
     <div ng-show="type.id == 'project'">
         <div class="row">
             <div class="col-sm-3">
-                Name
+                Name*
             </div>
             <div class="col-sm-9">
                 <span class="input-label" >
-                    <input type="text" ng-model='item.name' class="form-control" placeholder="Project name">
+                    <input type="text" name="name" ng-model='item.name' class="form-control" placeholder="Project name" required >
                 </span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.name.$touched">
+                        <div class='error' ng-show="form.name.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+        <div class="row">
+            <div class="col-sm-3">
+                Description*
+            </div>
+            <div class="col-sm-9">
+                <span class="input-label">
+                     <input type="text" ng-model='item.description' name="description" class="form-control" required >
+                </span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.description.$touched">
+                        <div class='error' ng-show="form.description.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-sm-3">
-                Description
+                Add users*:
             </div>
             <div class="col-sm-9">
                 <span class="input-label">
-                     <input type="text" ng-model='item.description' class="form-control">
-                </span>
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <div class="col-sm-3">
-                Add users:
-            </div>
-            <div class="col-sm-9">
-                <span class="input-label">
-                    <select class="form-control"
+                    <select name="users" class="form-control"
                             ng-options="option.email for option in users"
-                            ng-model="item.users" multiple></select>
+                            ng-model="item.users" multiple required ></select>
                 </span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.users.$touched">
+                        <div class='error' ng-show="form.users.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div ng-show="type.id == 'sprint'">
         <div class="row">
             <div class="col-sm-3">
-                Name
+                Name*
             </div>
             <div class="col-sm-9">
                 <span class="input-label p-t-0">
-                    <input type="text" ng-model='item.name' class="form-control" placeholder="Sprint name">
+                    <input type="text" name="name" ng-model='item.name' class="form-control" placeholder="Sprint name" required >
                 </span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.name.$touched">
+                        <div class='error' ng-show="form.name.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-sm-3">
-                Project
+                Project*
             </div>
             <div class="col-sm-9">
                 <span class="input-label p-t-0" ng-model='item.project_id'>
-                <select class="form-control" ng-options="option.name for option in projects" ng-model="item.project_id"></select></span>
+                <select class="form-control" name="project" ng-options="option.name for option in projects" ng-model="item.project_id" required ></select></span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.project.$touched">
+                        <div class='error' ng-show="form.project.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-sm-3">
-                Start date
+                Start date*
             </div>
             <div class="col-sm-9">
                 <span class="input-label p-t-0">
-                    <input ng-model='item.start_date' ui-date>
+                    <input name="date" ng-model='item.start_date' ui-date required >
                 </span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.date.$touched">
+                        <div class='error' ng-show="form.date.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-sm-3">
-                End date
+                End date*
             </div>
             <div class="col-sm-9">
                 <span class="input-label p-t-0" >
-                    <input ng-model='item.end_date' ui-date>
+                    <input name="date" ng-model='item.end_date' ui-date required >
                 </span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.date.$touched">
+                        <div class='error' ng-show="form.date.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div ng-show="(type.id ==='card')">
         <div class="row">
             <div class="col-sm-3">
-                Name
+                Name*
             </div>
             <div class="col-sm-9">
                 <span class="input-label">
-                     <input type="text" ng-model='item.name' class="form-control" placeholder="Card name">
+                     <input type="text" name="name" ng-model='item.name' class="form-control" placeholder="Card name" required >
                 </span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.name.$touched">
+                        <div class='error' ng-show="form.name.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-sm-3">
-                Description
+                Description*
             </div>
             <div class="col-sm-9">
                 <span class="input-label">
-                     <input type="text" ng-model='item.description' class="form-control">
+                     <input type="text" name="description" ng-model='item.description' class="form-control" required >
                 </span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.description.$touched">
+                        <div class='error' ng-show="form.description.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-sm-3">
-                Project
+                Project*
             </div>
             <div class="col-sm-9">
                 <span class="input-label">
-                <select class="form-control" ng-options="option.name for option in projects" ng-model="item.project_id"></select></span></span>
+                <select class="form-control" name="project" ng-options="option.name for option in projects" ng-model="item.project_id" required ></select></span></span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.project.$touched">
+                        <div class='error' ng-show="form.project.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-sm-3">
-                Assignee:
+                Assignee*:
             </div>
             <div class="col-sm-9">
                 <span class="input-label">
-                    <select class="form-control" ng-options="option.email for option in users" ng-model="item.asignee_id" ></select></span>
+                    <select class="form-control" name="asignee" ng-options="option.email for option in users" ng-model="item.asignee_id" required ></select></span>
+                <div class="row">
+                    <div div class="col-sm-12" ng-show="form.$submitted || form.asignee.$touched">
+                        <div class='error' ng-show="form.asignee.$error.required">This field is required for filling.</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -143,4 +200,5 @@
             <button class="btn btn-primary m-r-5" ng-click="save(item)" ng-disabled="loading">Save</button>
         </div>
     </div>
+    </form>
 </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mean')
-    .controller('CreateNewCtrl', function ($scope, $uibModalInstance, users, projects, Common, $state) {
+    .controller('CreateNewCtrl', function ($scope, $uibModalInstance, users, projects, ProjectService, CardService, $state) {
         $scope.item = {};
         $scope.users = users;
         $scope.projects = projects;
@@ -23,14 +23,20 @@ angular.module('mean')
 
         $scope.save = function(item){
             if($scope.type.id == 'project'){
-                Common.saveProject(item);
+                ProjectService.saveProject(item);
             }else if ($scope.type.id == 'sprint'){
-                Common.saveSprint(item);
+                ProjectService.saveSprint(item);
             }else if($scope.type.id == 'card'){
-                Common.saveCard(item);
+                CardService.saveCard(item);
             }
             $uibModalInstance.close();
             $state.reload();
         }
+
+        $scope.$watch('type', function () {
+            console.log();
+            $scope.form.$submitted = false;
+            $scope.item = {};
+        })
 
     });

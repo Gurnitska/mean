@@ -26,7 +26,6 @@ module.exports = function () {
 
 
     functions.findProjectById = function(req, res){
-        console.log(req);
         Project.findById(req.params.id, function (err, project) {
             if (err) {
                 console.log(err);
@@ -39,7 +38,7 @@ module.exports = function () {
         });
     }
     functions.findProjectByUserId = function(req, res){
-        console.log(req);
+        console.log(req.params.user_id);
         Project.find({users: req.params.user_id}, function (err, project) {
             if (err) {
                 console.log(err);
@@ -53,7 +52,6 @@ module.exports = function () {
     }
 
     functions.deleteProject = function(req, res){
-        console.log(req);
         Project.find({_id:req.params.id}).remove().exec();
     }
 

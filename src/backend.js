@@ -25,39 +25,39 @@ module.exports = function () {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,     Content-Type, Accept");
         res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+        res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
         next();
     });
 
     app.route('/login').post(user_routes().login);
     app.route('/signup').post(user_routes().signup);
 
-    app.route('/user').get(user_routes().user);
-    app.route('/user/:id').get(user_routes().findUserById);
+    app.route('/users').get(user_routes().user);
+    app.route('/users/:id').get(user_routes().findUserById);
 
-    app.route('/project/new').post(ensureAuthorized, project_routes().createProject);
-    app.route('/project/delete/:id').post(ensureAuthorized, project_routes().deleteProject);
-    app.route('/project/:id').get(ensureAuthorized, project_routes().findProjectById);
+    app.route('/projects').post(ensureAuthorized, project_routes().createProject);
+    app.route('/projects/:id').delete(ensureAuthorized, project_routes().deleteProject);
+    app.route('/projects/:id').get(ensureAuthorized, project_routes().findProjectById);
     app.route('/projects').get(ensureAuthorized, project_routes().projects);
-    app.route('/user/project/:user_id').get(ensureAuthorized, project_routes().findProjectByUserId);
-    app.route('/project/cards/:id').get(ensureAuthorized, project_routes().findProjectByUserId);
+    app.route('/users/:user_id/projects').get(ensureAuthorized, project_routes().findProjectByUserId);
+    // app.route('/projects/:id/cards').get(ensureAuthorized, project_routes().findProjectByUserId);
 
-    app.route('/sprint/new').post(ensureAuthorized, sprint_routes().createSprint);
-    app.route('/sprint/:id').post(ensureAuthorized, sprint_routes().updateSprint);
-    app.route('/sprint/:id').get(ensureAuthorized, sprint_routes().findSprintById);
-    app.route('/user/sprint/:user_id').get(ensureAuthorized, sprint_routes().findSprintByUserId);
-    app.route('/project/sprint/:project_id').get(ensureAuthorized, sprint_routes().findSprintByProjectId);
+    app.route('/sprints').post(ensureAuthorized, sprint_routes().createSprint);
+    app.route('/sprints/:id').post(ensureAuthorized, sprint_routes().updateSprint);
+    app.route('/sprints/:id').get(ensureAuthorized, sprint_routes().findSprintById);
+    app.route('/users/:user_id/sprints').get(ensureAuthorized, sprint_routes().findSprintByUserId);
+    app.route('/projects/:project_id/sprints').get(ensureAuthorized, sprint_routes().findSprintByProjectId);
 
-    app.route('/card/new').post(ensureAuthorized, card_routes().createCard);
-    app.route('/card/:id').post(ensureAuthorized, card_routes().updateCard);
-    app.route('/card/:id').get(ensureAuthorized, card_routes().findCardById);
-    app.route('/card/delete/:id').post(ensureAuthorized, card_routes().deleteCard);
+    app.route('/cards').post(ensureAuthorized, card_routes().createCard);
     app.route('/cards/deleteids').post(ensureAuthorized, card_routes().deleteCards);
-    app.route('/user/card/:user_id').get(ensureAuthorized, card_routes().findCardByUserId);
-    app.route('/card/project/:project_id').get(ensureAuthorized, card_routes().findCardsByProjectId);
+    app.route('/cards/:id').post(ensureAuthorized, card_routes().updateCard);
+    app.route('/cards/:id').get(ensureAuthorized, card_routes().findCardById);
+    app.route('/cards/:id').delete(ensureAuthorized, card_routes().deleteCard);
+    app.route('/users/:user_id/cards').get(ensureAuthorized, card_routes().findCardByUserId);
+    app.route('/projects/:project_id/cards').get(ensureAuthorized, card_routes().findCardsByProjectId);
 
     function ensureAuthorized(req, res, next) {
         var bearerToken;
-        console.log(req.headers);
         var bearerHeader = req.headers["authorization"];
         if (typeof bearerHeader !== 'undefined') {
             var bearer = bearerHeader.split(" ");

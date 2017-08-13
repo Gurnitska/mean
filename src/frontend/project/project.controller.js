@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mean.app.project')
-    .controller('ProjectDetailsCtrl', function ($scope, dialog, project, cards, sprints, Common, CardService) {
+    .controller('ProjectDetailsCtrl', function ($scope, dialog, project, cards, sprints, ProjectService, CardService) {
         $scope.project = project;
         $scope.cards = cards;
         $scope.sprints = sprints;
@@ -57,9 +57,9 @@ angular.module('mean.app.project')
         $scope.deleteProject = function(){
             var id = $scope.project._id;
             var dialogData = {
-                project: Common.getProjectById(id),
-                cards: Common.getCardsByProjectId(id),
-                sprints: Common.getSprintsByProjectId(id)
+                project: ProjectService.getProjectById(id),
+                cards: ProjectService.getCardsByProjectId(id),
+                sprints: ProjectService.getSprintsByProjectId(id)
             }
             var modal = dialog.showCustomDialog('frontend/dialogs/delete_project.html', 'DeleteProjectCtrl', dialogData);
             modal.result.then(function () {
@@ -69,7 +69,7 @@ angular.module('mean.app.project')
 
         $scope.editSprint = function(id){
             var dialogData = {
-                sprint: Common.getSprintById(id)
+                sprint: ProjectService.getSprintById(id)
             }
             var modal = dialog.showCustomDialog('frontend/dialogs/edit_sprint.html', 'EditSprintCtrl', dialogData);
             modal.result.then(function () {

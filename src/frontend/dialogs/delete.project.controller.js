@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mean.app.project')
-    .controller('DeleteProjectCtrl', function ($scope, $uibModalInstance, project, cards, sprints, Common, CardService, $state) {
+    .controller('DeleteProjectCtrl', function ($scope, $uibModalInstance, project, cards, sprints, ProjectService, CardService, $state) {
         $scope.item = {};
         $scope.sprints = sprints;
         $scope.project = project;
@@ -16,7 +16,7 @@ angular.module('mean.app.project')
         };
 
         $scope.delete = function(){
-            Common.deleteProject($scope.project);
+            ProjectService.deleteProject($scope.project);
             if(cards) {
                 CardService.deleteCards($scope.cards.map(function (a) {
                     console.log(a);

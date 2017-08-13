@@ -12,9 +12,9 @@ angular.module('mean.app.card').config(function ($stateProvider, $provide) {
 			templateUrl: 'frontend/card/card.html',
 			controller: 'CardDetailsCtrl',
 			resolve: {
-				card: function($stateParams, Common){
+				card: function($stateParams, CardService){
 					var id = $stateParams.id;
-					return Common.getCardById(id);
+					return CardService.getCardById(id);
 				}
 			}
 		})
@@ -23,16 +23,16 @@ angular.module('mean.app.card').config(function ($stateProvider, $provide) {
             templateUrl: 'frontend/card/edit.card.html',
             controller: 'EditCardCtrl',
             resolve: {
-                card: function($stateParams, Common){
+                card: function($stateParams, CardService){
                     var id = $stateParams.id;
-                    return Common.getCardById(id);
+                    return CardService.getCardById(id);
                 },
 				users: function(Common){
                 	return Common.getUsers();
 				},
-				sprints: function(card, Common){
+				sprints: function(card, ProjectService){
 					console.log(card);
-					return Common.getSprintsByProjectId(card.project_id._id);
+					return ProjectService.getSprintsByProjectId(card.project_id._id);
 				}
             }
         })

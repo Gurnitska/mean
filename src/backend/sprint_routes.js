@@ -43,7 +43,6 @@ module.exports = function () {
     }
 
     functions.findSprintById = function(req, res){
-        console.log(req);
         Sprint.findById(req.params.id, function (err, project) {
             if (err) {
                 console.log(err);
@@ -56,7 +55,6 @@ module.exports = function () {
         });
     }
     functions.findSprintByUserId = function(req, res){
-        console.log(req);
         Sprint.find({users:req.params.user_id}, function (err, project) {
             if (err) {
                 console.log(err);
@@ -70,7 +68,6 @@ module.exports = function () {
     }
 
     functions.findSprintByProjectId = function(req, res){
-        console.log(req);
         Sprint.find({project_id:req.params.project_id}, function (err, sprints) {
             if (err) {
                 console.log(err);

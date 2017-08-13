@@ -98,7 +98,7 @@ module.exports = function () {
     }
 
     functions.findCardsByProjectId = function(req, res){
-        Card.find({project_id:req.params.project_id}, function (err, card) {
+        Card.find({project_id:req.params.project_id}, function (err, cards) {
             if (err) {
                 console.log(err);
                 res.send({
@@ -106,25 +106,20 @@ module.exports = function () {
                 });
                 return res;
             };
-            res.send(card);
+            res.send(cards);
         });
     }
 
     functions.deleteCard = function(req, res){
-        console.log("Delete card method!!!!!!!!!");
-        console.log(req);
         Card.find({_id:req.params.id}).remove().exec();
     }
 
     functions.deleteCards = function(req, res){
-        console.log("Delete cards method!!!!!!!!!");
-        console.log(req.query.ids);
         var objectIds = [];
-        var ids = req.query.ids.split(',');
+        var ids = req.query.ids;
         console.log(ids);
         ids.forEach(function(item){
             objectIds.push(mongoose.Types.ObjectId(item));
-            console.log(item);
         })
         if(objectIds && objectIds.length > 0) {
             console.log(objectIds);
